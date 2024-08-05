@@ -24,12 +24,12 @@ conda install <package-name>
 ### Download models
 
 You can find plenty of models in [HuggingFace Web](https://huggingface.co/models). You can download any of your choice. We are using the following models:
-- [CodeLlama-13B-GGUF](https://huggingface.co/TheBloke/CodeLlama-13B-GGUF).  // REVISAR LINK Y AGREGAR VERSIÓN ESPECÍFICA
+- [CodeLlama-13B-GGUF](https://huggingface.co/TheBloke/CodeLlama-13B-GGUF) (Using Q8_0.gguf version).
 ```
-wget -O /models https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/resolve/main/codellama-13b.Q5_K_M.gguf
+wget -O /models https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/resolve/main/codellama-13b.Q8_0.gguf
 ```
 
-- [Phind-CodeLlama-34B-v2-GGUF](https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF). // REVISAR LINK Y AGREGAR VERSIÓN ESPECÍFICA
+- [Phind-CodeLlama-34B-v2-GGUF](https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF) (Using Q5_K_M.gguf version).
 ```
 wget -O /models https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF/resolve/main/phind-codellama-34b-v2.Q5_K_M.gguf
 ```
