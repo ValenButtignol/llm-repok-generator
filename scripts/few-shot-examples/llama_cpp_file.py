@@ -14,6 +14,7 @@ def get_prompt(filename, prompt):
     if filename is not None:
         prompt_file = open(filename, "r")
         prompt = prompt_file.read()
+        return prompt
     elif prompt is not None:
         return prompt
 
