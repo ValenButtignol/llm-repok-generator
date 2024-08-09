@@ -23,20 +23,35 @@ conda install <package-name>
 
 ### Download models
 
-You can find plenty of models in [HuggingFace Web](https://huggingface.co/models). You can download any of your choice. We are using the following models, and you can execute the following commands from the root of the project to download them:
-- [CodeLlama-13B-GGUF](https://huggingface.co/TheBloke/CodeLlama-13B-GGUF) (Using Q8_0.gguf version).
+You can find plenty of models in [HuggingFace](https://huggingface.co/models). You can download any of your choice. We are using the following models, and you can execute the following commands from the root of the project to download them:
+- [CodeLlama-13B-GGUF](https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/blob/main/codellama-13b.Q8_0.gguf) (Q8_0).
 ```
 wget -P models https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/resolve/main/codellama-13b.Q8_0.gguf
 ```
 
-- [Phind-CodeLlama-34B-v2-GGUF](https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF) (Using Q5_K_M.gguf version).
+- [Phind-CodeLlama-34B-v2-GGUF](https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/blob/main/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf) (Q5_K_M).
 ```
 wget -P models https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF/resolve/main/phind-codellama-34b-v2.Q5_K_M.gguf
 ```
 
-- [Llama-2-7B-Chat-GGUF](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF)
+- [Llama-2-7B-Chat-GGUF](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/blob/main/llama-2-7b-chat.Q5_K_M.gguf) (Q5_K_M).
 ```
 wget -P models https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
+```
+
+- [Meta-Llama-3-8B-Instruct-GGUF](https://huggingface.co/SanctumAI/Meta-Llama-3-8B-Instruct-GGUF/blob/main/meta-llama-3-8b-instruct.Q5_K_M.gguf) (Q5_K_M).
+```
+wget -P models https://huggingface.co/SanctumAI/Meta-Llama-3-8B-Instruct-GGUF/resolve/main/meta-llama-3-8b-instruct.Q5_K_M.gguf
+```
+
+- [Meta-Llama-3.1-8B-Instruct-GGUF](https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/blob/main/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf) (Q5_K_M).
+```
+wget -P models https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf
+```
+
+- [Code-Llama-3-8B-GGUF](https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/blob/main/Code-Llama-3-8B-Q5_K_M.gguf) (Q5_K_M).
+```
+wget -P models https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/resolve/main/Code-Llama-3-8B-Q5_K_M.gguf
 ```
 
 ### Run models
