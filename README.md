@@ -41,17 +41,14 @@ wget -P models https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main
 
 ### Run models
 To run a model, there are two types of argument needed:
-- Model. According to the models that we use, you can select three choices:
-  - `codellama-13b`
-  - `llama-2-chat`
-  - `codellama-34b` 
+- Model Name. The script would look for the input argument in the 'models' folder.
 - Prompt. You can pass a prompt from file or terminal command line:
-  - `-f <filename>`
-  - `-p <prompt>` (Terminal command line) 
+  - `-fp <file_name>`. The script will look the input argument in the 'prompts' folder.
+  - `-tp <text_prompt>`. Terminal command line.
 Examples:
 ```
-python3 llama_cpp_file.py -mdl "codellama-13b" -p "Q: Hi ¿Can you explain me some of Python Programming Language? A:" 
+python3 run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -tp "Q: Hi ¿Can you explain me some of Python Programming Language? A:" 
 ```
 ```
-python3 llama_cpp_file.py -mdl "codellama-13b" -f "../prompts/promptTestGen.txt"
+python3 run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -fp "promptTestGen.txt"
 ```
