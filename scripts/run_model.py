@@ -12,14 +12,14 @@ def create_parser():
 
 def get_prompt(file_prompt, text_prompt):
     if file_prompt is not None:
-        file = open(f"../prompts/{file_prompt}", "r")
+        file = open(f"prompts/{file_prompt}", "r")
         prompt = file.read()
         return prompt
     elif text_prompt is not None:
         return text_prompt
 
 def get_model_path(model_name):
-    return f"../models/{model_name}"
+    return f"models/{model_name}"
 
 def create_model(modelpath):
     model = Llama(
