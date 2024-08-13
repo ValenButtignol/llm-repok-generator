@@ -16,9 +16,13 @@ conda activate <env-name>
 - Inside the environment download a transformers library:
   - [llama-cpp-python](https://github.com/abetlen/llama-cpp-python). This is the one we used.
   - [ctransformers](https://github.com/marella/ctransformers).
-In general, to install packages:
+
+These libraries probably won't be found in Miniconda's default channel, so you can run the following commands to install them (remember to have your env activated):
 ```
-conda install <package-name>
+pip install llama-cpp-python
+```
+```
+pip install ctransformers
 ```
 
 ### Download models
@@ -62,8 +66,8 @@ To run a model, there are two types of argument needed:
   - `-tp <text_prompt>`. Terminal command line.
 Examples:
 ```
-python3 run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -tp "Q: Hi ¿Can you explain me some of Python Programming Language? A:" 
+python3 scripts/run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -tp "Q: Hi ¿Can you explain me some of Python Programming Language? A:" 
 ```
 ```
-python3 run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -fp "promptTestGen.txt"
+python3 scripts/run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -fp "promptTestGen.txt"
 ```
