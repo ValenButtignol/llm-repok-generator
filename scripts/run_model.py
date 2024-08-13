@@ -16,7 +16,7 @@ def get_prompt(file_prompt, text_prompt):
         prompt = file.read()
         return prompt
     elif text_prompt is not None:
-        return prompt
+        return text_prompt
 
 def get_model_path(model_name):
     return f"../models/{model_name}"
