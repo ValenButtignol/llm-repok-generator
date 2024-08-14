@@ -7,8 +7,9 @@ def get_system_user_role_prompt(file_prompt):
     return data
 
 def create_model_for_chat_completion(model, data):
-    model.create_chat_completion(
-      messages = [
+    output = model.create_chat_completion(
+        max_tokens=1000,
+        messages = [
           {
               "role": "system", 
               "content": data["SYSTEM"]},
@@ -18,11 +19,13 @@ def create_model_for_chat_completion(model, data):
           }
       ]
     )
-    return model
+
+    return output['choices'][0]['message']['content']
+    
 
 if __name__ == "__main__":
     from run_model import create_model
-    modelpaths = [""]
+    modelpaths = ["models/Code-Llama-3-8B-Q5_K_M.gguf"]
     prompts = [
                "code_mutation_prompt_testpilot2.yaml"
                #"code_mutation_prompt.yaml",

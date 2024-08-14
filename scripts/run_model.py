@@ -24,13 +24,14 @@ def get_model_path(model_name):
 def create_model(modelpath):
     model = Llama(
         model_path=modelpath,
+        n_ctx=2048    
     )
     return model
 
 def run_model(model, prompt):
     output = model(
         prompt,
-        max_tokens=500,
+        max_tokens=1000,
         #stop=["}\n\n"],
         echo=True # Echo the prompt back in the output
     )
