@@ -22,8 +22,7 @@ def create_model_for_chat_completion(model, data):
 def list_files(folder):
     files = []
     for file_name in os.listdir(folder):
-        file_path = os.path.join(folder, file_name)
-        files.append(file_path)
+        files.append(file_name)
     return files
 
 def list_models():
@@ -40,16 +39,27 @@ def list_prompts():
     return prompts
 
 if __name__ == "__main__":
-    from run_model import create_model, get_system_user_role_prompt, run_model, get_default_prompt
-    model_paths = list_models()
+    from run_model import get_model_path, create_model, get_system_user_role_prompt, run_model, get_default_prompt
+    model_names = list_models()
     prompt_paths = list_prompts()
-    for model_path in model_paths:
-        model = create_model(model_path)
-        for prompt_path in prompt_paths:
-            if prompt_path.endswith(".txt"):
-                prompt_data = get_default_prompt(prompt_path)
-                run_model(model, prompt_data)
-            else:     
-                prompt_data = get_system_user_role_prompt(prompt_path)
-                create_model_for_chat_completion(model, prompt_data)
-            
+    
+    with open('output.txt', 'w') as file:
+        file.write("-----------------------------------------------------\n")
+        for model_name in model_names:
+            model_path = get_model_path(model_name)
+            model = create_model(model_path)
+            for prompt_path in prompt_paths:
+                file.write(model_name + " -- " + prompt_path + "\n")
+                if prompt_path.endswith(".txt"):
+                    prompt_data = get_default_prompt(prompt_path)
+                    output = run_model(model, prompt_data)
+                else:     
+                    prompt_data = get_system_user_role_prompt(prompt_path)
+                    output = create_model_for_chat_completion(model, prompt_data)
+                file.write("output: \n")
+                file.write(output + "\n")
+                file.write('\n')
+                file.write("-----------------------------------------------------\n")
+                file.write('\n')
+
+
