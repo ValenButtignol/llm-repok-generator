@@ -1,0 +1,72 @@
+You are a world class Python programmer.
+Review the following API documentation for `calculateOptimizedPath`.
+--------------------------- API Documentation ---------------------------
+`calculateOptimizedPath`
+
+**Description:**
+
+The `calculateOptimizedPath` function calculates the most efficient path between two points in a weighted graph. It uses a specified algorithm (e.g., Dijkstra's, A*, or Bellman-Ford) to find the shortest or optimal path based on the given weights.
+
+**Parameters:**
+
+- `graph` (`Map<Node, List<Edge>>`):  
+  A representation of the graph, where each `Node` is connected to a list of `Edge`s. Each `Edge` contains a target `Node` and a `weight`.
+
+- `startNode` (`Node`):  
+  The starting point of the pathfinding algorithm.
+
+- `endNode` (`Node`):  
+  The target point for which the optimized path will be calculated.
+
+- `algorithm` (`String`):  
+  The algorithm to be used for path calculation. Supported values are `"dijkstra"`, `"a_star"`, and `"bellman_ford"`.  
+  Default value: `"dijkstra"`.
+
+- `heuristic` (`Function<Node, Double>`, optional):  
+  A heuristic function that estimates the cost to reach the endNode from any given node. This parameter is required if the A* algorithm is chosen. Otherwise, it is ignored.
+
+**Returns:**
+
+- `List<Node>`:  
+  A list of `Node`s representing the most optimized path from `startNode` to `endNode`. The list will be empty if no path exists.
+
+**Exceptions:**
+
+- `IllegalArgumentException`:  
+  Thrown if the `algorithm` provided is not supported.
+
+- `NoSuchElementException`:  
+  Thrown if either `startNode` or `endNode` is not found in the graph.
+
+**Example Usage:**
+
+```java
+Map<Node, List<Edge>> graph = new HashMap<>();
+// ... populate graph ...
+
+Node startNode = new Node("A");
+Node endNode = new Node("B");
+
+List<Node> path = calculateOptimizedPath(graph, startNode, endNode, "dijkstra");
+
+if (!path.isEmpty()) {
+    System.out.println("Optimized Path: " + path);
+} else {
+    System.out.println("No path exists between the specified nodes.");
+}
+```
+
+**Notes:**
+
+- Ensure that the graph is fully connected and that all weights are positive for the Dijkstra and A* algorithms.
+- For the Bellman-Ford algorithm, the graph can contain negative weights, but it should not contain negative cycles.
+
+-------------------------------------------------------------------------
+Extract a list of maximum five properties that you would use for property-based testing. Specifically, give properties on the output of the function, which may or may not depend on the input arguments.
+Output in the following format:
+1.
+2.
+3.
+4.
+5.
+Do not write any tests. Only write this list of five properties in natural language.

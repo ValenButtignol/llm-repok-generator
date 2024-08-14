@@ -1,0 +1,12 @@
+SYSTEM: "Generate mutations for the following snippets of code."
+USER: |
+  [[Code]]
+  long biasedExp = (longBits & DoubleConsts.EXP_BIT_MASK) » (DoubleConsts.SIGNIFICAND_WIDTH - 1);
+  [[Mutations]]
+  - longBits & DoubleConsts.EXP_BIT_MASK |==> longBits | DoubleConsts.EXP_BIT_MASK
+  - longBits & DoubleConsts.EXP_BIT_MASK) » (DoubleConsts.SIGNIFICAND_WIDTH - 1) |==> longBits & DoubleConsts.EXP_BIT_MASK) « (DoubleConsts.SIGNIFICAND_WIDTH - 1)
+  - 1 |==> 0
+  - DoubleConsts.SIGNIFICAND_WIDTH - 1 |==> DoubleConsts.SIGNIFICAND_WIDTH % 1
+  [[Code]]
+  WeightMass mass = lhsDist.get(classVal);
+  [[Mutations]]

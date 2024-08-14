@@ -20,5 +20,3 @@ public double norm2(cern.colt.matrix.DoubleMatrix1D x)
 Returns the two-norm (aka euclidean norm) of vector x;
 equivalent to mult(x,x).
 ### Analysis
-
-### Equivalence
