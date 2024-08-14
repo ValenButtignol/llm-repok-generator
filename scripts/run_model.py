@@ -12,7 +12,7 @@ def create_parser():
 
 def get_prompt(file_prompt, text_prompt):
     if file_prompt is not None:
-        file = open(f"prompts/{file_prompt}", "r")
+        file = open(f"prompts/default_prompts/{file_prompt}", "r")
         prompt = file.read()
         return prompt
     elif text_prompt is not None:
@@ -30,13 +30,14 @@ def create_model(modelpath):
 def run_model(model, prompt):
     output = model(
         prompt,
-        max_tokens=300,
+        max_tokens=500,
         #stop=["}\n\n"],
         echo=True # Echo the prompt back in the output
     )
     return output['choices'][0]['text']
 
-if __name__ == "__main__":
+
+def execute():
     args = create_parser()
     prompt = get_prompt(args.file_prompt, args.text_prompt)
     model_path = get_model_path(args.model_name)
@@ -45,3 +46,6 @@ if __name__ == "__main__":
     output = run_model(model, prompt)
     print("\n")
     print(output)
+
+if __name__ == "__main__":
+    execute()
