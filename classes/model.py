@@ -22,14 +22,15 @@ class Model:
         return output['choices'][0]['text'] 
     
     def __repr__(self) -> str:
+        content_width = 55
         return f"""
-         ---------------------------------------------------
-        |Model: {self.model_path}                           |
-        |Temperature: {self.temperature}                    |
-        |Max Tokens: {self.max_tokens}                      |   
-        |n_ctx: {self.n_ctx}                                |
-        |Prompt: {self.prompt.get_text()}                   |
-         ---------------------------------------------------
+            {'-' * (content_width + 2)}
+            | Model: {self.model_path.ljust(content_width - len("Model: "))}|
+            | Temperature: {str(self.temperature).ljust(content_width - len("Temperature: "))}|
+            | Max Tokens: {str(self.max_tokens).ljust(content_width - len("Max Tokens: "))}|
+            | n_ctx: {str(self.n_ctx).ljust(content_width - len("n_ctx: "))}|
+            | Prompt: {self.prompt.get_text().ljust(content_width - len("Prompt: "))}|
+            {'-' * (content_width + 2)}
         """
         
 # The idea should be to get the messages from prompt attribute.
