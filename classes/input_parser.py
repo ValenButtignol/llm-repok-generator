@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from classes.model.model_path_factory import ModelPathFactory
+from classes.model_path_factory import ModelPathFactory
 from classes.prompt.prompt_factory import PromptFactory
 
 class InputParser:
