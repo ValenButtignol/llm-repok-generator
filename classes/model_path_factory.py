@@ -5,14 +5,16 @@ class ModelPathFactory:
     def create(self, model_name):
         folder = "models/"
         if model_name == "codellama2-13b":
-            return folder + ""
+            return folder + "codellama-13b.Q8_0.gguf"
         elif model_name == "codellama2-34b":
-            return folder + ""
+            return folder + "phind-codellama-34b-v2.Q5_K_M.gguf"
         elif model_name == "llama2chat-7b":
             return folder + "llama-2-7b-chat.Q5_K_M.gguf"
         elif model_name == "llama3-8b":
-            return folder + ""
+            return folder + "meta-llama-3-8b-instruct.Q5_K_M.gguf"
         elif model_name == "codellama3-8b":
-            return folder + ""
+            return folder + "Code-Llama-3-8B-Q5_K_M.gguf"
+        elif model_name == "codellama3.1-8b":
+            return folder + "meta-llama-3.1-8b-instruct.Q5_K_M.gguf"
         else:
             raise Exception("Invalid model name: " + model_name + "\n")

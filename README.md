@@ -48,9 +48,9 @@ wget -P models https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main
 wget -P models https://huggingface.co/SanctumAI/Meta-Llama-3-8B-Instruct-GGUF/resolve/main/meta-llama-3-8b-instruct.Q5_K_M.gguf
 ```
 
-- [Meta-Llama-3.1-8B-Instruct-GGUF](https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/blob/main/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf) (Q5_K_M).
+- [Meta-Llama-3.1-8B-Instruct-GGUF](https://huggingface.co/SanctumAI/Meta-Llama-3.1-8B-Instruct-GGUF/blob/main/meta-llama-3.1-8b-instruct.Q5_K_M.gguf) (Q5_K_M).
 ```
-wget -P models https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf
+wget -P models https://huggingface.co/SanctumAI/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/meta-llama-3.1-8b-instruct.Q5_K_M.gguf
 ```
 
 - [Code-Llama-3-8B-GGUF](https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/blob/main/Code-Llama-3-8B-Q5_K_M.gguf) (Q5_K_M).
@@ -59,15 +59,19 @@ wget -P models https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/resolve/mai
 ```
 
 ### Run models
-To run a model, there are two types of argument needed:
-- Model Name. The script would look for the input argument in the 'models' folder.
-- Prompt. You can pass a prompt from file or terminal command line:
-  - `-fp <file_name>`. The script will look the input argument in the 'prompts' folder.
-  - `-tp <text_prompt>`. Terminal command line.
-Examples:
+To run a model, run from root the following command:
 ```
-python3 scripts/run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -tp "Q: Hi ¿Can you explain me some of Python Programming Language? A:" 
+python3 main.py -mn "model_name" -tmp N -mtk N -nctx N -pc "prompt" -pt "prompt_type"
 ```
+Where:
+- `mn` is the name of the model you want to run. You can add options in `classes/model_path_factory.py`.
+- `tmp` is the temperature of the model. It is not required, 0.1 it's default value.
+- `mtk` is the maximum tokens. It is not required, 1000 it's default value.
+- `nctx` is the number tokens for context. It is not required, 2048 it's default value.
+- `pc` is the prompt you want to use. It can be plain text from terminal or a file.
+- `pt` is the prompt type. It can be "text" or "file".
+
+An example:
 ```
-python3 scripts/run_model.py -mn "llama-2-7b-chat.Q5_K_M.gguf" -fp "promptTestGen.txt"
+python3 main.py -mn "llama2chat-7b" -tmp 0.2 -mtk 1500 -nctx 1024 -pc "test_generation_prompt.txt" -pt "file"
 ```
