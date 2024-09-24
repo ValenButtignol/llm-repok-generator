@@ -68,7 +68,7 @@ Where:
 - `tmp` is the temperature of the model. It is not required, 0.1 it's default value.
 - `mtk` is the maximum tokens. It is not required, 1000 it's default value.
 - `nctx` is the number tokens for context. It is not required, 2048 it's default value.
-- `pc` is the prompt you want to use. It can be plain text from terminal or a file.
+- `pc` is the prompt container you want to use. It can be plain text from terminal or a file.
 - `pt` is the prompt type. It can be "text" or "file".
 
 An example:

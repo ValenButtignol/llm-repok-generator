@@ -3,21 +3,22 @@ from llama_cpp import Llama
 class Model:
     def __init__(self, model_path, temperature, max_tokens, n_ctx, prompt):
         self.model_path = model_path
-        self.temperature = temperature
-        self.max_tokens = max_tokens
-        self.n_ctx = n_ctx
+        self.temperature = int(temperature)
+        self.max_tokens = int(max_tokens)
+        self.n_ctx = int(n_ctx)
         self.prompt = prompt
 
         self.model = Llama(
             model_path=model_path,
-            n_ctx=2048    
+            n_ctx=self.n_ctx    
         )
  
     def run(self):
         output = self.model(
             self.prompt.get_text(),
             max_tokens=self.max_tokens,
-            echo=True
+            echo=True,
+            temperature=self.temperature
         )
         return output['choices'][0]['text'] 
     
