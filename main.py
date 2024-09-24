@@ -17,3 +17,4 @@ if __name__ == "__main__":
     print(parser.n_ctx)
     model = Model(parser.model_path, parser.temperature, parser.max_tokens, parser.n_ctx, parser.prompt)
     print(model)
+    model.run()
