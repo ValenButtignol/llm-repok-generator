@@ -13,7 +13,7 @@ class Model:
             n_ctx=self.n_ctx    
         )
  
-    def run(self):
+    def create_completion(self):
         output = self.model(
             self.prompt.get_text(),
             max_tokens=self.max_tokens,
