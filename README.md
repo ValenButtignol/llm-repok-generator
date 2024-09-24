@@ -58,6 +58,21 @@ wget -P models https://huggingface.co/SanctumAI/Meta-Llama-3.1-8B-Instruct-GGUF/
 wget -P models https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/resolve/main/Code-Llama-3-8B-Q5_K_M.gguf
 ```
 
+-[Codestral-22B-v0.1-GGUF](https://huggingface.co/bartowski/Codestral-22B-v0.1-GGUF/blob/main/Codestral-22B-v0.1-Q5_K_M.gguf) (Q5_K_M).
+```
+wget -P models https://huggingface.co/bartowski/Codestral-22B-v0.1-GGUF/resolve/main/Codestral-22B-v0.1-Q5_K_M.gguf
+```
+
+-[Mistral-7B-Instruct-v0.2-GGUF](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/blob/main/mistral-7b-instruct-v0.2.Q5_K_M.gguf) (Q5_K_M).
+```
+wget -P models https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q5_K_M.gguf
+```
+
+-[gemma-2-27b-it-GGUF](https://huggingface.co/bartowski/gemma-2-27b-it-GGUF/resolve/main/gemma-2-27b-it-Q5_K_M.gguf) (Q5_K_M).
+```
+wget -P models https://huggingface.co/bartowski/gemma-2-27b-it-GGUF/resolve/main/gemma-2-27b-it-Q5_K_M.gguf
+```
+
 ### Run models
 To run a model, run from root the following command:
 ```
