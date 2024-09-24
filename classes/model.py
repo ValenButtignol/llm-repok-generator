@@ -3,7 +3,7 @@ from llama_cpp import Llama
 class Model:
     def __init__(self, model_path, temperature, max_tokens, n_ctx, prompt):
         self.model_path = model_path
-        self.temperature = int(temperature)
+        self.temperature = float(temperature)
         self.max_tokens = int(max_tokens)
         self.n_ctx = int(n_ctx)
         self.prompt = prompt
