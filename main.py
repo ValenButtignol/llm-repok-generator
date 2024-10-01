@@ -15,7 +15,7 @@ def main():
     parser.output_manager.write("\n\n")
     parser.output_manager.write(completion)
 
-#python3 main.py -mn "llama3-8b" -tmp 0.2 -mtk 1500 -nctx 1024 -pc "test_generation_prompt.txt" -pt "file" -ot "file" -oc "output.txt"
+#python3 main.py -mn "llama3-8b" -tmp 0.2 -mtk 1500 -nctx 1024 -pc "default_prompts/test_generation_prompt.txt" -pt "file" -ot "file" -oc "output.txt"
 if __name__ == "__main__":
     main()
     
