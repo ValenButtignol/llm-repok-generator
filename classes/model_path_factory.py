@@ -17,11 +17,11 @@ class ModelPathFactory:
         elif model_name == "codellama3-8b":
             return folder + "Code-Llama-3-8B-Q5_K_M.gguf"
         elif model_name == "codestral-22b":
-            return folder + ""
+            return folder + "Codestral-22B-v0.1-Q5_K_M.gguf"
         elif model_name == "mistral-7b":
-            return folder + ""
+            return folder + "mistral-7b-instruct-v0.2.Q5_K_M.gguf"
         elif model_name == "gemma2-27b":
-            return folder + ""
+            return folder + "gemma-2-27b-it-Q5_K_M.gguf"
             
         else:
             raise Exception("Invalid model name: " + model_name + "\n")
