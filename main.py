@@ -17,5 +17,6 @@ if __name__ == "__main__":
     print(parser.n_ctx)
     model = Model(parser.model_path, parser.temperature, parser.max_tokens, parser.n_ctx, parser.prompt)
     completion = model.create_completion() #The completion isn't written to a file yet because the model has to register the execution time of the prompt.
-    parser.output_manager.write(model)
+    parser.output_manager.write(repr(model))
+    parser.output_manager.write("\n\n")
     parser.output_manager.write(completion)
