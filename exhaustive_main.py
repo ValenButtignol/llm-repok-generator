@@ -23,7 +23,6 @@ def main():
             output_manager.write(repr(model))
             output_manager.write("\n\n")
             output_manager.write(completion)
-            output_manager.close()
 
 #python3 exhaustive_main.py
 if __name__ == "__main__":

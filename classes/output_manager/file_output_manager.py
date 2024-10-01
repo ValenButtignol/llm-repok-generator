@@ -8,3 +8,4 @@ class FileOutputManager(OutputManagerInterface):
     def write(self, text):
         with open(self.output_file_path, 'a') as output_file:
             output_file.write(text)
+        output_file.close()
