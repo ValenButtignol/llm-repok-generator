@@ -6,5 +6,5 @@ class FileOutputManager(OutputManagerInterface):
         self.output_file_path = output_folder + output_file_path
 
     def write(self, text):
-        with open(self.output_file_path, 'w') as output_file:
+        with open(self.output_file_path, 'a') as output_file:
             output_file.write(text)
