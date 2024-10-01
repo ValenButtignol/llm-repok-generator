@@ -13,7 +13,7 @@ class InputParser:
         self.parser.add_argument("-pc", "--prompt_container", dest="prompt_container", help="file or plain text containing the prompt", required=True)
         self.parser.add_argument("-pt", "--prompt_type", dest="prompt_type", help="format of the prompt", required=True)
         self.parser.add_argument("-ot", "--output_type", dest="output_type", help="type of output", required=True)
-        self.parser.add_argument("-of", "--output_container", dest="output_container", help="file or None (terminal) containing the output", required=False, default=None)
+        self.parser.add_argument("-oc", "--output_container", dest="output_container", help="file or None (terminal) containing the output", required=False, default=None)
     
     def parse(self):
         args = self.parser.parse_args()
