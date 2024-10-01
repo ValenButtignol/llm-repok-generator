@@ -1,4 +1,5 @@
 from llama_cpp import Llama
+import time
 
 class Model:
     def __init__(self, model_path, temperature, max_tokens, n_ctx, prompt):
@@ -7,6 +8,7 @@ class Model:
         self.max_tokens = int(max_tokens)
         self.n_ctx = int(n_ctx)
         self.prompt = prompt
+        self.time = 0
 
         self.model = Llama(
             model_path=model_path,
@@ -14,12 +16,15 @@ class Model:
         )
  
     def create_completion(self):
+        start = time.time()
         output = self.model(
             self.prompt.get_text(),
             max_tokens=self.max_tokens,
             echo=True,
             temperature=self.temperature
         )
+        end = time.time()
+        self.time = end - start
         return output['choices'][0]['text'] 
     
     def __repr__(self) -> str:
@@ -30,6 +35,7 @@ class Model:
 | Temperature: {str(self.temperature).ljust(content_width - len("Temperature: "))}|
 | Max Tokens: {str(self.max_tokens).ljust(content_width - len("Max Tokens: "))}|
 | n_ctx: {str(self.n_ctx).ljust(content_width - len("n_ctx: "))}|
+| Time: {str(self.time).ljust(content_width - len("Time: "))}|
 {'-' * (content_width + 2)}
     
     Prompt: 
