@@ -16,5 +16,4 @@ if __name__ == "__main__":
     print(parser.prompt.get_text())
     print(parser.n_ctx)
     model = Model(parser.model_path, parser.temperature, parser.max_tokens, parser.n_ctx, parser.prompt)
-    print(model)
-    print(model.create_completion())
+    parser.output_manager.write(model.create_completion())
