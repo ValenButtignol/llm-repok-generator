@@ -18,7 +18,7 @@ def main():
             print("Model: " + model_name + " Prompt: " + prompt_path)
             model = Model(f"models/{model_name}", 0.2, 300, 2048, file_prompt)
             prompt_filename = prompt_path.split("/")[-1]
-            output_manager = FileOutputManager(model_name + "_" + prompt_filename + ".txt")
+            output_manager = FileOutputManager(model_name + "_" + prompt_filename)
             completion = model.create_completion() 
             output_manager.write(repr(model))
             output_manager.write("\n\n")
