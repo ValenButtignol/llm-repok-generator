@@ -20,7 +20,7 @@ class Model:
         output = self.model(
             self.prompt.get_text(),
             max_tokens=self.max_tokens,
-            echo=True,
+            echo=False,
             temperature=self.temperature
         )
         end = time.time()
@@ -40,7 +40,6 @@ class Model:
     
     Prompt: 
 {self.prompt.get_text()}
-    
 {'-' * (content_width + 2)}
         """
         
