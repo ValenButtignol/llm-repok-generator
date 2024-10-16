@@ -27,6 +27,19 @@ class Model:
         self.time = end - start
         return output['choices'][0]['text'] 
     
+    
+    def create_chat_completion(self):
+        start = time.time()
+        output = self.model.create_chat_completion(
+            max_tokens=self.max_tokens,
+            messages = self.prompt.get_text(),
+            temperature=self.temperature
+        )
+        end = time.time()
+        self.time = end - start
+        return output['choices'][0]['message']['content']
+    
+    
     def __repr__(self) -> str:
         content_width = 80
         return f"""
@@ -42,12 +55,3 @@ class Model:
 {self.prompt.get_text()}
 {'-' * (content_width + 2)}
         """
-        
-# The idea should be to get the messages from prompt attribute.
-#    def create_chat_completion(self, messages):
-#        output = self.model.create_chat_completion(
-#            max_tokens=self.max_tokens,
-#            messages = messages
-#        )
-#        return output['choices'][0]['message']['content']
-
