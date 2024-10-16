@@ -1,5 +1,6 @@
 from classes.prompt.prompt_interface import PromptInterface
 from classes.prompt.file_prompt import FilePrompt
+from classes.prompt.json_prompt import JsonPrompt
 from classes.prompt.plain_text_prompt import PlainTextPrompt
 
 class PromptFactory:
@@ -10,6 +11,8 @@ class PromptFactory:
         if prompt_type == "text":
             return PlainTextPrompt(prompt_container)
         elif prompt_type == "file":
-            return FilePrompt(prompt_container) 
+            return FilePrompt(prompt_container)
+        elif prompt_type == "json":
+            return JsonPrompt(prompt_container) 
         else:
             raise Exception("Invalid prompt type: " + prompt_type + "\n")
