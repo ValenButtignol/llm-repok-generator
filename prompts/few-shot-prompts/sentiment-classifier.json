@@ -1,0 +1,8 @@
+{
+    "messages": [
+        {"role": "system","content": "You are a sentiment classifier. For each message, give the percentage of positive/netural/negative."},
+        {"role": "user","content": "Text: I liked it\nSentiment: 70% positive 30% neutral 0% negative\nText: It could be better\nSentiment: 0% positive 50% neutral 50% negative\nText: It's fine\nSentiment: 25% positive 50% neutral 25% negative\nText: I thought it was okay"},
+        {"role": "user","content": "Text: I loved it!"},
+        {"role": "user","content": "Text: Terrible service 0/10"}
+    ]
+}
