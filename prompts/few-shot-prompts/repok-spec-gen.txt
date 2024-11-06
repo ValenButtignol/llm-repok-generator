@@ -1,0 +1,159 @@
+You are a highly accurate assistant that builds well-structured specifications from Java class definitions. Your task is to analyze the provided Java class, accurately determine its properties and build a `RepOK` method for it. The `RepOK` method should verify that the class maintains its representation invariants.
+
+[[CODE]]
+import java.util.HashSet;
+import java.util.Set;
+
+public class Graph {
+    public static class Node {
+        int id;
+
+        public Node(int id) {
+            this.id = id;
+        }
+    }
+
+    public static class Edge {
+        Node source;
+        Node destination;
+
+        public Edge(Node source, Node destination) {
+            this.source = source;
+            this.destination = destination;
+        }
+    }
+
+    private Set<Node> nodes;
+    private Set<Edge> edges;
+
+    public Graph() {
+        nodes = new HashSet<>();
+        edges = new HashSet<>();
+    }
+
+    public void addNode(int id) {
+        nodes.add(new Node(id));
+    }
+
+    public void addEdge(int sourceId, int destinationId) {
+        Node source = findNodeById(sourceId);
+        Node destination = findNodeById(destinationId);
+        if (source != null && destination != null) {
+            edges.add(new Edge(source, destination));
+        }
+    }
+
+    private Node findNodeById(int id) {
+        for (Node node : nodes) {
+            if (node.id == id) {
+                return node;
+            }
+        }
+        return null;
+    }
+}
+
+[[REP_OK]]
+public boolean repOK() {
+    // Check that all edges connect nodes within the graph
+    for (Edge edge : edges) {
+        if (!nodes.contains(edge.source) || !nodes.contains(edge.destination)) {
+            return false;  // Edge has a node not in the graph
+        }
+
+        // Ensure no self-loops
+        if (edge.source == edge.destination) {
+            return false;
+        }
+    }
+
+    // Ensure each node is part of the graph
+    for (Node node : nodes) {
+        if (node == null) {
+            return false;  // Null nodes are not allowed
+        }
+    }
+    
+    return true;
+}
+
+[[CODE]]
+public class Student {
+    private String name;
+    private int age;
+    private List<String> courses;
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.courses = new ArrayList<>();
+    }
+
+    public void enroll(String course) {
+        courses.add(course);
+    }
+}
+
+[[REP_OK]]
+public boolean repOk() {
+    // Check that name is not null and not empty
+    if (name == null || name.isEmpty()) {
+        return false;
+    }
+    // Check that age is within a valid range
+    if (age < 0 || age > 120) {
+        return false;
+    }
+    // Check that courses list is not null
+    if (courses == null) {
+        return false;
+    }
+    return true;
+}
+
+[[CODE]]
+public class LinkedList {
+    private static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+    private int size;
+
+    public LinkedList() {
+        head = null;
+        size = 0;
+    }
+
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        size++;
+    }
+
+    public int remove() {
+        if (head == null) {
+            throw new IllegalStateException("List is empty");
+        }
+        int removedData = head.data;
+        head = head.next;
+        size--;
+        return removedData;
+    }
+}
+
+[[REP_OK]]

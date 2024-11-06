@@ -1,0 +1,184 @@
+You are a highly accurate assistant that builds well-structured specifications from Java class definitions. Analyze the provided Java class, the classe's purpose, attributes, methods, constructors, and any relationships with other classes. Provide an alloy specification that accurately represents the structure and relationships of the class.
+
+[[CODE]]
+public class LinkedList {
+    private static class Node {
+        int data;
+        Node next;
+
+        Node(int data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
+    private Node head;
+    private int size;
+
+    public LinkedList() {
+        head = null;
+        size = 0;
+    }
+
+    public void add(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node current = head;
+            while (current.next != null) {
+                current = current.next;
+            }
+            current.next = newNode;
+        }
+        size++;
+    }
+
+    public int remove() {
+        if (head == null) {
+            throw new IllegalStateException("List is empty");
+        }
+        int removedData = head.data;
+        head = head.next;
+        size--;
+        return removedData;
+    }
+}
+
+[[SPECIFICATION]]
+sig Node {
+    nxt: lone Node
+}
+
+sig LinkedList {
+    head: lone Node,
+    size: Int
+}
+
+pred validLinkedList(l: LinkedList) {
+    // size should be non-negative
+    l.size >= 0
+
+    // if list is empty, head and tail should be null
+    (l.size = 0) => (no l.head)
+
+	// Size consistency: the number of nodes reachable from head should equal size
+    l.size = #l.head.*nxt
+
+    // Acyclicity: no node should be reachable from itself via 'nxt'
+    all n: Node | n !in n.^nxt
+
+	// Reachability: every node in the list should be reachable from head
+    all n: Node | n in l.head.*nxt
+}
+
+[[CODE]]
+import java.util.HashSet;
+import java.util.Set;
+
+public class Graph {
+    public static class Node {
+        int id;
+
+        public Node(int id) {
+            this.id = id;
+        }
+    }
+
+    public static class Edge {
+        Node source;
+        Node destination;
+
+        public Edge(Node source, Node destination) {
+            this.source = source;
+            this.destination = destination;
+        }
+    }
+
+    private Set<Node> nodes;
+    private Set<Edge> edges;
+
+    public Graph() {
+        nodes = new HashSet<>();
+        edges = new HashSet<>();
+    }
+
+    public void addNode(int id) {
+        nodes.add(new Node(id));
+    }
+
+    public void addEdge(int sourceId, int destinationId) {
+        Node source = findNodeById(sourceId);
+        Node destination = findNodeById(destinationId);
+        if (source != null && destination != null) {
+            edges.add(new Edge(source, destination));
+        }
+    }
+
+    private Node findNodeById(int id) {
+        for (Node node : nodes) {
+            if (node.id == id) {
+                return node;
+            }
+        }
+        return null;
+    }
+}
+
+[[SPECIFICATION]]
+sig Node {}
+
+sig Graph {
+    nodes: set Node,
+    edges: set Node -> Node
+}
+
+pred validGraph(g: Graph) {
+    // Ensure no self-loops (if needed)
+    all n: Node | (n -> n) !in g.edges
+
+	// Ensure nodes only exist within the graph
+	all n: Node | n in g.nodes
+
+    // Ensure edges only exist between nodes within the graph
+    all n1, n2: Node | (n1 -> n2) in g.edges => n1 in g.nodes && n2 in g.nodes
+}
+
+[[CODE]]
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student {
+    private String name;
+    private int age;
+    private List<String> courses;
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+        this.courses = new ArrayList<>();
+    }
+
+    public void enroll(String course) {
+        courses.add(course);
+    }
+
+    // RepOK Method
+    public boolean repOk() {
+        // Check that name is not null and not empty
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+        // Check that age is within a valid range
+        if (age < 0 || age > 120) {
+            return false;
+        }
+        // Check that courses list is not null
+        if (courses == null) {
+            return false;
+        }
+        return true;
+    }
+}
+
+[[SPECIFICATION]]
