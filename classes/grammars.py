@@ -38,7 +38,7 @@ expr          ::= const | qualName | "@" ws name ws | "this" ws
                 | "(" ws expr ")" ws | block ws
 
 const         ::= "-"? ws number | "none" ws | "univ" ws | "iden" ws
-unOp          ::= "!" | "not" | "no" | mult | "set" | [ # ] | "~" | "*" | "^" ws
+unOp          ::= "!" | "not" | "no" | mult | "set" | "hash" | "~" | "*" | "^" ws
 binOp         ::= "||" | "or" | "&&" | "and" | "<=>" | "iff" | "=>" | "implies" | "&" | "+" | "-" | "++" | "<:" | ":>" | "." ws
 arrowOp       ::= (mult | "set")? "->" (mult | "set")? ws
 compareOp     ::= "in" | "=" | "<" | ">" | "=<" | ">=" ws
@@ -57,5 +57,15 @@ number        ::= [0-9]+ ws
 ws            ::= [ \t\n]*
 """
 
+ARITHMETIC_GBNF = r"""
+root  ::= (expr "=" ws term "\n")+
+expr  ::= term ([-+*/] term)*
+term  ::= ident | num | "(" ws expr ")" ws
+ident ::= [a-z] [a-z0-9_]* ws
+num   ::= [0-9]+ ws
+ws    ::= [ \t\n]*
+"""
 
-alloy_grammar = LlamaGrammar(_grammar=ALLOY_GBNF)
+minimal_grammar = LlamaGrammar.from_string(ARITHMETIC_GBNF)
+
+#alloy_grammar = LlamaGrammar.from_string(grammar=ALLOY_GBNF)
