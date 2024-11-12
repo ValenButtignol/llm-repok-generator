@@ -162,23 +162,6 @@ public class Student {
     public void enroll(String course) {
         courses.add(course);
     }
-
-    // RepOK Method
-    public boolean repOk() {
-        // Check that name is not null and not empty
-        if (name == null || name.isEmpty()) {
-            return false;
-        }
-        // Check that age is within a valid range
-        if (age < 0 || age > 120) {
-            return false;
-        }
-        // Check that courses list is not null
-        if (courses == null) {
-            return false;
-        }
-        return true;
-    }
 }
 
 [[SPECIFICATION]]
