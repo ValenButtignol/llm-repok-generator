@@ -17,7 +17,7 @@ class JsonPrompt(PromptInterface):
             data = json.load(file)
             data["messages"].append({
                 "role": role,
-                "message": message
+                "content": message
             })
         with open(self.filename, "w") as file:
             json.dump(data, file)
