@@ -4,20 +4,15 @@ import json
 class JsonPrompt(PromptInterface):
     def __init__(self, filename):
         self.filename="prompts/" + filename
-    
-    def get_text(self) -> str:
         with open(self.filename, "r") as file:
-            data = json.load(file)
-            prompt = data["messages"]
+            self.data = json.load(file)
         
-        return prompt
+    def get_text(self) -> str:
+        return self.data["messages"]
+        
     
     def add_role_message(self, role, message):
-        with open(self.filename, "r") as file:
-            data = json.load(file)
-            data["messages"].append({
-                "role": role,
-                "content": message
-            })
-        with open(self.filename, "w") as file:
-            json.dump(data, file)
+        self.data["messages"].append({
+            "role": role,
+            "content": message
+        })
