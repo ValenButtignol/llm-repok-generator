@@ -27,7 +27,6 @@ class Model:
         self.time = end - start
         return output['choices'][0]['text'] 
     
-    
     def create_chat_completion(self):
         start = time.time()
         output = self.model.create_chat_completion(
@@ -39,6 +38,11 @@ class Model:
         self.time = end - start
         return output['choices'][0]['message']['content']
     
+    def reprompt(self, last_completion, user_message):
+        self.prompt.add_role_message("assistant", last_completion)
+        self.prompt.add_role_message("user", user_message)
+        self.prompt.add_role_message("user", "3+2=?")
+        return self.create_chat_completion()
     
     def __repr__(self) -> str:
         content_width = 80

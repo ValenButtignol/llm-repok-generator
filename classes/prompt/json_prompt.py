@@ -10,7 +10,6 @@ class JsonPrompt(PromptInterface):
     def get_text(self) -> str:
         return self.data["messages"]
         
-    
     def add_role_message(self, role, message):
         self.data["messages"].append({
             "role": role,
