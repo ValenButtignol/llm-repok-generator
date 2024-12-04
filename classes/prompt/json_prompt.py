@@ -15,3 +15,13 @@ class JsonPrompt(PromptInterface):
             "role": role,
             "content": message
         })
+        
+    def add_assistant_message(self, message):
+        self.add_role_message("assistant", message)
+        
+    def add_user_message(self, message):
+        self.add_role_message("user", message)
+
+    def add_user_message_from_json(self, filename):
+        prompt = JsonPrompt(filename)
+        self.add_user_message(prompt.get_text())

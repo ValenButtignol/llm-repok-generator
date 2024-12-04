@@ -13,8 +13,7 @@ def main():
     completion = model.create_chat_completion() #The completion isn't written to a file yet because the model has to register the execution time of the prompt.
     parser.output_manager.write(repr(model))
     parser.output_manager.write(completion)
-    model.reprompt(completion, "3+2=?")
-    completion = model.create_chat_completion() #The completion isn't written to a file yet because the model has to register the execution time of the prompt.
+    completion = model.reprompt(completion, "3+2=?")
     parser.output_manager.write(repr(model))
     parser.output_manager.write(completion)
 
