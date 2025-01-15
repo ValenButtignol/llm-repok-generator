@@ -4,9 +4,11 @@ SYSTEM_PROMPT_PROP_LIST="""(6, 7)You are an expert software engineer with profic
 
 SYSTEM_PROMPT_REPOK_AND_PROP="""(6 dual, 7 dual)You are an expert software engineer with proficiency in the Java programming language. Your task is to analyze a Java class and a property in plain text that is a part of the representation invariant of the class, then generate the code for that property. A representation invariant is a boolean method of the class that returns true when executed over valid instances of the class, and returns false otherwise."""
 
-USER_PROMPT_REPOK="""(1, 2, 4)Generate a representation invariant for the following class:"""
-USER_PROMPT_PROP_LIST="""(3, 5)Generate a list of properties in plain text that the representation invariant of the following class must satisfy:"""
-USER_PROMPT_CHAIN_OF_THOUGT="""(3, 5)Generate a representation invariant that verifies the properties above"""
+USER_PROMPT_REPOK="""(1, 2, 4)Generate a representation invariant for the following class:
+"""
+USER_PROMPT_PROP_LIST="""(3, 5)Generate a list of properties in plain text that the representation invariant of the following class must satisfy:
+"""
+USER_PROMPT_CHAIN_OF_THOUGT="""(3, 5)Generate a representation invariant that verifies the properties above."""
 
 CLASS_EXAMPLE_1="""[Class]
 ```java
