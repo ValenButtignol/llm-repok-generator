@@ -6,5 +6,6 @@ class GlobalRepOkPrompt(JsonPrompt):
         with open(classfile, "r") as file:
             self.classtext = file.read()
 
+        self.data = {"messages":[]}
         self.add_role_message("system", SYSTEM_PROMPT_REPOK)
         self.add_user_message(USER_PROMPT_REPOK + self.classtext)
