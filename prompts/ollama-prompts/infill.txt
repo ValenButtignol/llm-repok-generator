@@ -1,1 +1,0 @@
-<PRE> def compute_gcd(x, y): <SUF>return result <MID>

@@ -1,2 +1,0 @@
-#django view for rendering the current day and time without a template
-def current_datetime(request):

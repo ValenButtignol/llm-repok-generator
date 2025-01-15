@@ -1,1 +1,0 @@
-# A simple python function to remove whitespace from a string:
