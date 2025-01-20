@@ -40,7 +40,7 @@ class Model:
     
     def reprompt(self, last_completion, user_message):
         self.prompt.add_assistant_message(last_completion)
-        self.prompt.add_user_message_from_json(user_message)
+        self.prompt.add_user_message(user_message)
         return self.create_chat_completion()
     
     def __repr__(self) -> str:

@@ -22,6 +22,10 @@ class ModelPathFactory:
             return folder + "mistral-7b-instruct-v0.2.Q5_K_M.gguf"
         elif model_name == "gemma2-27b":
             return folder + "gemma-2-27b-it-Q5_K_M.gguf"
+        elif model_name == "qwen2.5-7b":
+            return folder + "Qwen2.5.1-Coder-7B-Instruct-Q5_K_M.gguf"
+        elif model_name == "llama3.2-3b":
+            return folder + "Llama-3.2-3B-Instruct-Q6_K_L.gguf"
             
         else:
             raise Exception("Invalid model name: " + model_name + "\n")
