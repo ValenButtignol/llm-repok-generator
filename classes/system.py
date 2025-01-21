@@ -7,14 +7,17 @@ class System:
     def __init__(self):
         self.parser = InputParser()
         self.model = None
+        self.temperature = 0.1
+        self.max_tokens = 2000
+        self.n_ctx = 4096
 
     def initialize(self):
         self.parser.parse()
         self.model = Model(
             self.parser.model_path, 
-            0.1, 
-            2000, 
-            4096, 
+            self.temperature, 
+            self.max_tokens, 
+            self.n_ctx, 
             self.parser.prompt
         )
 
@@ -51,12 +54,12 @@ class System:
 
     def _run_model_with_dual_wholeclass(self, classwithprop):
         prompt = DualRepOkFewShotCoTWholeClassPrompt(classwithprop)
-        model = Model(self.parser.model_path, 0.1, 2000, 4096, prompt)
+        model = Model(self.parser.model_path, self.temperature, self.max_tokens, self.n_ctx, prompt)
         return model.create_chat_completion()
 
     def _run_model_with_dual_partsofclass(self, classwithprop):
         prompt = DualRepOkFewShotCoTPartsOfClassPrompt(classwithprop)
-        model = Model(self.parser.model_path, 0.1, 2000, 4096, prompt)
+        model = Model(self.parser.model_path, self.temperature, self.max_tokens, self.n_ctx, prompt)
         return model.create_chat_completion()
 
     def _catch_properties(self, completion):
