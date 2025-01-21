@@ -14,6 +14,7 @@ class InputParser:
     
     def parse(self):
         args = self.parser.parse_args()
+        self.prompt_type = args.prompt_type
         model_path_factory = ModelPathFactory()
         output_manager_factory = OutputManagerFactory()
         self.output_manager = output_manager_factory.create(args.output_type, args.output_container)
