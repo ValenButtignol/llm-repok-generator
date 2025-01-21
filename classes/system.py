@@ -29,7 +29,7 @@ class System:
         if self.parser.prompt_type in ["dual-w", "dual-p"]:
             self._handle_dual_prompts(completion)
         elif self.parser.prompt_type in ["fs-cot-w", "fs-cot-p"]:
-            self._handle_few_shot_prompts(completion)
+            self._handle_few_shot_cot_prompts(completion)
 
     def _handle_dual_prompts(self, completion):
         properties = self._catch_properties(completion)
@@ -46,7 +46,7 @@ class System:
             self._write_output(repr(self.model))
             self._write_output(completion)
 
-    def _handle_few_shot_prompts(self, completion):
+    def _handle_few_shot_cot_prompts(self, completion):
         self.parser.prompt.add_remaining_prompts(completion)
         completion = self.model.create_chat_completion()
         self._write_output(repr(self.model))
