@@ -2,9 +2,8 @@ from classes.prompt.json_prompt import JsonPrompt
 from classes.prompt.template_prompts.templates import SYSTEM_PROMPT_PROP_LIST, SYSTEM_PROMPT_REPOK_AND_PROP, PARTS_OF_CLASS_1, TEXT_PROP_LIST_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, PARTS_OF_CLASS_2, TEXT_PROP_LIST_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2
 
 class DualPropertiesPartsOfClassPrompt(JsonPrompt):
-    def __init__(self, classfile):
-        with open(classfile, "r") as file:
-            self.classtext = file.read()
+    def __init__(self, classtext):
+        self.classtext = classtext
 
         self.data = {"messages":[]}
         self.add_role_message("system", SYSTEM_PROMPT_PROP_LIST)

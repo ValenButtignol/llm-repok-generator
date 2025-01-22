@@ -2,9 +2,8 @@ from classes.prompt.json_prompt import JsonPrompt
 from classes.prompt.template_prompts.templates import SYSTEM_PROMPT_REPOK, USER_PROMPT_PROP_LIST, USER_PROMPT_CHAIN_OF_THOUGT, CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, REPOK_EXAMPLE_2
 
 class GlobalRepOkFewShotCoTWholeClassPrompt(JsonPrompt):
-    def __init__(self, classfile):
-        with open(classfile, "r") as file:
-            self.classtext = file.read()
+    def __init__(self, classtext):
+        self.classtext = classtext
 
         self.data = {"messages":[]}
         self.add_role_message("system", SYSTEM_PROMPT_REPOK)
