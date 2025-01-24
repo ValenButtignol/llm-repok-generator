@@ -52,24 +52,21 @@ wget -P models https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF
 ```
 
 ### Run models
-To run a model, have in mind the following parameters:
-
-Where:
+Parameters:
 - `mn` is the name of the model you want to run. You can add options in `classes/model_path_factory.py`.
 - `pt` is the prompt type. It can be the following options:
-  - `text` for plain text.
-  - `txt` for a TXT file.
-  - `json` for a JSON file.
   - `global` for basic global repOk prompt.
   - `fs-w` for few-shot with a whole class repOk prompt.
   - `fs-p` for few-shot with parts of a class repOk prompt.
   - `dual-w` for dual prompting with a whole class repOk.
   - `dual-p` for dual prompting with parts of a class repOk.
-- `pc` is the prompt container you want to use. It can be plain text from terminal or a file. When `pt` is any repOk option, this parameter must be a Java class.
+- `rc` is the raw class in plain text.
+- `cn` is the class name.
 - `ot` is the output type. It can be "console" or "file".
 - `oc` is the output container. It's necessary when `ot` is "file".
 
-An example:
+
+For running the tool:
 ```
-python3 main.py -mn "Llama3.1" -pt "json" -pc "prompt_file.json"
+python3 main.py -mn "Llama3.1" -pt "global" -ct "PlainTextClass" -cn "NameOfClass" -ot "console"
 ```
