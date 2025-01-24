@@ -1,9 +1,11 @@
 from classes.prompt.json_prompt import JsonPrompt
 from classes.prompt.template_prompts.templates import SYSTEM_PROMPT_REPOK, USER_PROMPT_REPOK, CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2
+from classes.class_format.whole_class_format import WholeClassFormat
 
 class GlobalRepOkFewShotWholeClassPrompt(JsonPrompt):
-    def __init__(self, classtext):
-        self.classtext = classtext
+    def __init__(self, raw_class):
+        self.class_format = WholeClassFormat(raw_class)
+        self.class_text = self.class_format.get_formatted_class()
 
         self.data = {"messages":[]}
         self.add_role_message("system", SYSTEM_PROMPT_REPOK)
@@ -11,4 +13,4 @@ class GlobalRepOkFewShotWholeClassPrompt(JsonPrompt):
         self.add_assistant_message(REPOK_EXAMPLE_1)
         self.add_user_message(USER_PROMPT_REPOK + CLASS_EXAMPLE_2)
         self.add_assistant_message(REPOK_EXAMPLE_2)
-        self.add_user_message(USER_PROMPT_REPOK + self.classtext)
+        self.add_user_message(USER_PROMPT_REPOK + self.class_text)
