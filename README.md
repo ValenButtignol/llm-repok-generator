@@ -13,80 +13,63 @@ The code in this replication package constructs the analysis files for the proje
 conda create -n <env-name>
 conda activate <env-name>
 ```
-- Inside the environment download a transformers library:
-  - [llama-cpp-python](https://github.com/abetlen/llama-cpp-python). This is the one we used.
-  - [ctransformers](https://github.com/marella/ctransformers).
-
-These libraries probably won't be found in Miniconda's default channel, so you can run the following commands to install them (remember to have your env activated):
+- Inside the environment download dependencies:
 ```
-pip install llama-cpp-python
+pip install -r requirements.txt
 ```
+- Run the following command to download javaparser:
 ```
-pip install ctransformers
+wget -P tools https://repo1.maven.org/maven2/com/github/javaparser/javaparser-core/3.26.3/javaparser-core-3.26.3.jar
 ```
 
 ### Download models
 
 You can find plenty of models in [HuggingFace](https://huggingface.co/models). You can download any of your choice. We are using the following models, and you can execute the following commands from the root of the project to download them:
-- [CodeLlama-13B-GGUF](https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/blob/main/codellama-13b.Q8_0.gguf) (Q8_0).
+
+- [bartowski/Meta-Llama-3.1-8B-Instruct-GGUF](https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF) (Q5_K_M).
 ```
-wget -P models https://huggingface.co/TheBloke/CodeLlama-13B-GGUF/resolve/main/codellama-13b.Q8_0.gguf
+wget -P models https://huggingface.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf
 ```
 
-- [Phind-CodeLlama-34B-v2-GGUF](https://huggingface.co/lmstudio-community/Meta-Llama-3.1-8B-Instruct-GGUF/blob/main/Meta-Llama-3.1-8B-Instruct-Q5_K_M.gguf) (Q5_K_M).
+- [bartowski/Qwen2.5.1-Coder-7B-Instruct-GGUF](https://huggingface.co/bartowski/Qwen2.5.1-Coder-7B-Instruct-GGUF) (Q6_K_L)
 ```
-wget -P models https://huggingface.co/TheBloke/Phind-CodeLlama-34B-v2-GGUF/resolve/main/phind-codellama-34b-v2.Q5_K_M.gguf
-```
-
-- [Llama-2-7B-Chat-GGUF](https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/blob/main/llama-2-7b-chat.Q5_K_M.gguf) (Q5_K_M).
-```
-wget -P models https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
+wget -P models https://huggingface.co/bartowski/Qwen2.5.1-Coder-7B-Instruct-GGUF/resolve/main/Qwen2.5.1-Coder-7B-Instruct-Q6_K_L.gguf
 ```
 
-- [Meta-Llama-3-8B-Instruct-GGUF](https://huggingface.co/SanctumAI/Meta-Llama-3-8B-Instruct-GGUF/blob/main/meta-llama-3-8b-instruct.Q5_K_M.gguf) (Q5_K_M).
+- [bartowski/DeepSeek-R1-Distill-Qwen-14B-GGUF](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-14B-GGUF) (Q6_K_L)
 ```
-wget -P models https://huggingface.co/SanctumAI/Meta-Llama-3-8B-Instruct-GGUF/resolve/main/meta-llama-3-8b-instruct.Q5_K_M.gguf
-```
-
-- [Meta-Llama-3.1-8B-Instruct-GGUF](https://huggingface.co/SanctumAI/Meta-Llama-3.1-8B-Instruct-GGUF/blob/main/meta-llama-3.1-8b-instruct.Q5_K_M.gguf) (Q5_K_M).
-```
-wget -P models https://huggingface.co/SanctumAI/Meta-Llama-3.1-8B-Instruct-GGUF/resolve/main/meta-llama-3.1-8b-instruct.Q5_K_M.gguf
+wget -P models https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-14B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-14B-Q6_K_L.gguf
 ```
 
-- [Code-Llama-3-8B-GGUF](https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/blob/main/Code-Llama-3-8B-Q5_K_M.gguf) (Q5_K_M).
+- [bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF) (Q6_K_L)
 ```
-wget -P models https://huggingface.co/bartowski/Code-Llama-3-8B-GGUF/resolve/main/Code-Llama-3-8B-Q5_K_M.gguf
-```
-
--[Codestral-22B-v0.1-GGUF](https://huggingface.co/bartowski/Codestral-22B-v0.1-GGUF/blob/main/Codestral-22B-v0.1-Q5_K_M.gguf) (Q5_K_M).
-```
-wget -P models https://huggingface.co/bartowski/Codestral-22B-v0.1-GGUF/resolve/main/Codestral-22B-v0.1-Q5_K_M.gguf
+wget -P models https://huggingface.co/bartowski/DeepSeek-R1-Distill-Llama-8B-GGUF/resolve/main/DeepSeek-R1-Distill-Llama-8B-Q6_K_L.gguf
 ```
 
--[Mistral-7B-Instruct-v0.2-GGUF](https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/blob/main/mistral-7b-instruct-v0.2.Q5_K_M.gguf) (Q5_K_M).
+- [bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF](https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF) (Q6_K_L)
 ```
-wget -P models https://huggingface.co/TheBloke/Mistral-7B-Instruct-v0.2-GGUF/resolve/main/mistral-7b-instruct-v0.2.Q5_K_M.gguf
-```
-
--[gemma-2-27b-it-GGUF](https://huggingface.co/bartowski/gemma-2-27b-it-GGUF/resolve/main/gemma-2-27b-it-Q5_K_M.gguf) (Q5_K_M).
-```
-wget -P models https://huggingface.co/bartowski/gemma-2-27b-it-GGUF/resolve/main/gemma-2-27b-it-Q5_K_M.gguf
+wget -P models https://huggingface.co/bartowski/DeepSeek-R1-Distill-Qwen-7B-GGUF/resolve/main/DeepSeek-R1-Distill-Qwen-7B-Q6_K_L.gguf
 ```
 
 ### Run models
-To run a model, run from root the following command:
-```
-python3 main.py -mn "model_name" -tmp N -mtk N -nctx N -pc "prompt" -pt "prompt_type"
-```
+To run a model, have in mind the following parameters:
+
 Where:
 - `mn` is the name of the model you want to run. You can add options in `classes/model_path_factory.py`.
-- `tmp` is the temperature of the model. It is not required, 0.1 it's default value.
-- `mtk` is the maximum tokens. It is not required, 1000 it's default value.
-- `nctx` is the number tokens for context. It is not required, 2048 it's default value.
-- `pc` is the prompt container you want to use. It can be plain text from terminal or a file.
-- `pt` is the prompt type. It can be "text" or "file".
+- `pt` is the prompt type. It can be the following options:
+  - `text` for plain text.
+  - `txt` for a TXT file.
+  - `json` for a JSON file.
+  - `global` for basic global repOk prompt.
+  - `fs-w` for few-shot with a whole class repOk prompt.
+  - `fs-p` for few-shot with parts of a class repOk prompt.
+  - `dual-w` for dual prompting with a whole class repOk.
+  - `dual-p` for dual prompting with parts of a class repOk.
+- `pc` is the prompt container you want to use. It can be plain text from terminal or a file. When `pt` is any repOk option, this parameter must be a Java class.
+- `ot` is the output type. It can be "console" or "file".
+- `oc` is the output container. It's necessary when `ot` is "file".
 
 An example:
 ```
-python3 main.py -mn "llama2chat-7b" -tmp 0.2 -mtk 1500 -nctx 1024 -pc "test_generation_prompt.txt" -pt "file"
+python3 main.py -mn "Llama3.1" -pt "json" -pc "prompt_file.json"
 ```
