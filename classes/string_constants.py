@@ -25,3 +25,10 @@ CLASS_ATTRS="""[Class Attributes]
 CLASS_METHODS="""[Class Methods]
 """
 
+CLASS_TAG="""[Class]
+"""
+BEGIN_CODE_SNIPPET="""```java
+"""
+END_CODE_SNIPPET="""
+```"""
+
