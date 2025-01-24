@@ -9,17 +9,17 @@ class PromptFactory:
     def __init__(self):
         pass
     
-    def create(self, prompt_type, prompt_container, class_name) -> JsonPrompt:
+    def create(self, prompt_type, raw_class, class_name) -> JsonPrompt:
         if prompt_type == "global":
-            return GlobalRepOkPrompt(prompt_container, class_name)
+            return GlobalRepOkPrompt(raw_class, class_name)
         elif prompt_type == "fs-w":
-            return GlobalRepOkFewShotWholeClassPrompt(prompt_container, class_name)
+            return GlobalRepOkFewShotWholeClassPrompt(raw_class, class_name)
         elif prompt_type == "fs-p":
-            return GlobalRepOkFewShotPartsOfClassPrompt(prompt_container, class_name)
+            return GlobalRepOkFewShotPartsOfClassPrompt(raw_class, class_name)
         elif prompt_type == "dual-w":
-            return DualPropertiesWholeClassPrompt(prompt_container, class_name)
+            return DualPropertiesWholeClassPrompt(raw_class, class_name)
         elif prompt_type == "dual-p":
-            return DualPropertiesPartsOfClassPrompt(prompt_container, class_name)
+            return DualPropertiesPartsOfClassPrompt(raw_class, class_name)
     
         else:
             raise Exception("Invalid prompt type: " + prompt_type + "\n")

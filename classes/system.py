@@ -1,7 +1,7 @@
 from classes.input_parser import InputParser
 from classes.model import Model
-from classes.prompt.template_prompts.dual_properties_partsofclass_prompt import DualRepOkFewShotCoTPartsOfClassPrompt
-from classes.prompt.template_prompts.dual_properties_wholeclass_prompt import DualRepOkFewShotCoTWholeClassPrompt
+from classes.prompt.dual_properties_partsofclass_prompt import DualRepOkFewShotCoTPartsOfClassPrompt
+from classes.prompt.dual_properties_wholeclass_prompt import DualRepOkFewShotCoTWholeClassPrompt
 
 class System:
     def __init__(self):
