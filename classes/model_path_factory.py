@@ -4,28 +4,17 @@ class ModelPathFactory:
 
     def create(self, model_name):
         folder = "models/"
-        if model_name == "codellama2-13b":
-            return folder + "codellama-13b.Q8_0.gguf"
-        elif model_name == "codellama2-34b":
-            return folder + "phind-codellama-34b-v2.Q5_K_M.gguf"
-        elif model_name == "llama2chat-7b":
-            return folder + "llama-2-7b-chat.Q5_K_M.gguf"
-        elif model_name == "llama3-8b":
-            return folder + "meta-llama-3-8b-instruct.Q5_K_M.gguf"
-        elif model_name == "llama3.1-8b":
-            return folder + "meta-llama-3.1-8b-instruct.Q5_K_M.gguf"
-        elif model_name == "codellama3-8b":
-            return folder + "Code-Llama-3-8B-Q5_K_M.gguf"
-        elif model_name == "codestral-22b":
-            return folder + "Codestral-22B-v0.1-Q5_K_M.gguf"
-        elif model_name == "mistral-7b":
-            return folder + "mistral-7b-instruct-v0.2.Q5_K_M.gguf"
-        elif model_name == "gemma2-27b":
-            return folder + "gemma-2-27b-it-Q5_K_M.gguf"
-        elif model_name == "qwen2.5-7b":
-            return folder + "Qwen2.5.1-Coder-7B-Instruct-Q5_K_M.gguf"
-        elif model_name == "llama3.2-3b":
-            return folder + "Llama-3.2-3B-Instruct-Q6_K_L.gguf"
-            
+    
+        if model_name == "Llama3.1":
+            return folder + "meta-llama-3.1-8b-instruct.Q6_K_L.gguf"
+        elif model_name == "Distill-Llama":
+            return folder + ""
+        elif model_name == "Qwen2.5.1-Coder":
+            return folder + ""
+        elif model_name == "Distill-Qwen-7b":
+            return folder + ""
+        elif model_name == "Distill-Qwen-14b":
+            return folder + ""
+
         else:
             raise Exception("Invalid model name: " + model_name + "\n")
