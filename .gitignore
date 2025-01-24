@@ -2,3 +2,4 @@ __pycache__/
 *.gguf
 references/
 output/
+tools/javaparser-core-3.26.3.jar
