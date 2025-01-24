@@ -1,2 +1,2 @@
-jpype
+jpype1
 llama-cpp-python
