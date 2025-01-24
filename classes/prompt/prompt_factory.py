@@ -1,7 +1,5 @@
 from classes.prompt.prompt_interface import PromptInterface
-from classes.prompt.file_prompt import FilePrompt
 from classes.prompt.json_prompt import JsonPrompt
-from classes.prompt.plain_text_prompt import PlainTextPrompt
 from classes.prompt.template_prompts.global_repok_prompt import GlobalRepOkPrompt
 from classes.prompt.template_prompts.global_repok_fewshot_wholeclass_prompt import GlobalRepOkFewShotWholeClassPrompt
 from classes.prompt.template_prompts.global_repok_fewshot_partsofclass_prompt import GlobalRepOkFewShotPartsOfClassPrompt
@@ -15,11 +13,7 @@ class PromptFactory:
         pass
     
     def create(self, prompt_type, prompt_container) -> PromptInterface:
-        if prompt_type == "text":
-            return PlainTextPrompt(prompt_container)
-        elif prompt_type == "file":
-            return FilePrompt(prompt_container)
-        elif prompt_type == "json":
+        if prompt_type == "json":
             return JsonPrompt(prompt_container) 
         elif prompt_type == "global":
             return GlobalRepOkPrompt(prompt_container)
