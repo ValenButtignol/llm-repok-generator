@@ -1,17 +1,14 @@
-from classes.prompt.prompt_interface import PromptInterface
-import json
-
-class JsonPrompt(PromptInterface):
-    def __init__(self, filename):
-        self.filename="prompts/" + filename
-        with open(self.filename, "r") as file:
-            self.data = json.load(file)
+class JsonPrompt():
+    def __init__(self, raw_class, class_name):
+        self.raw_class = raw_class
+        self.class_name = class_name
+        self.prompt_data = {"messages":[]}
         
     def get_text(self) -> str:
-        return self.data["messages"]
+        return self.prompt_data["messages"]
         
     def add_role_message(self, role, message):
-        self.data["messages"].append({
+        self.prompt_data["messages"].append({
             "role": role,
             "content": message
         })
@@ -22,6 +19,5 @@ class JsonPrompt(PromptInterface):
     def add_user_message(self, message):
         self.add_role_message("user", message)
 
-    def add_user_message_from_json(self, filename):
-        prompt = JsonPrompt(filename)
-        self.add_user_message(prompt.get_text())
+    def add_system_message(self, message):
+        self.add_role_message("system", message)
