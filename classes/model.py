@@ -14,19 +14,7 @@ class Model:
             model_path=model_path,
             n_ctx=self.n_ctx    
         )
- 
-    def create_completion(self):
-        start = time.time()
-        output = self.model(
-            self.prompt.get_text(),
-            max_tokens=self.max_tokens,
-            echo=False,
-            temperature=self.temperature
-        )
-        end = time.time()
-        self.time = end - start
-        return output['choices'][0]['text'] 
-    
+     
     def create_chat_completion(self):
         start = time.time()
         output = self.model.create_chat_completion(
