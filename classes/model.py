@@ -24,10 +24,11 @@ class Model:
         )
         end = time.time()
         self.time = end - start
-        return output['choices'][0]['message']['content']
+        completion = output['choices'][0]['message']['content']
+        self.prompt.add_assistant_message(completion)
+        return completion
     
-    def reprompt(self, last_completion, user_message):
-        self.prompt.add_assistant_message(last_completion)
+    def reprompt(self, user_message):
         self.prompt.add_user_message(user_message)
         return self.create_chat_completion()
     
