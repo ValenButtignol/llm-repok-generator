@@ -48,31 +48,3 @@ class System:
         self.repOk_parser.set_repOk_completion(completion)
         repOk_class = self.repOk_parser.parse()
         self.output_manager.write(repOk_class)
-
-    def _handle_dual_prompts(self, completion):
-        properties = self._catch_properties(completion)
-        classwithoutprop = self.parser.prompt.classtext
-
-        for prop in properties:
-            classwithprop = classwithoutprop + prop
-
-            if self.prompt_type == "dual-w":
-                completion = self._run_model_with_dual_wholeclass(classwithprop)
-            elif self.prompt_type == "dual-p":
-                completion = self._run_model_with_dual_partsofclass(classwithprop)
-
-            self._write_output(repr(self.model))
-            self._write_output(completion)
-
-    def _run_model_with_dual_wholeclass(self, classwithprop):
-        prompt = DualRepOkFewShotCoTWholeClassPrompt(classwithprop)
-        model = Model(self.parser.model_path, self.temperature, self.max_tokens, self.n_ctx, prompt)
-        return model.create_chat_completion()
-
-    def _run_model_with_dual_partsofclass(self, classwithprop):
-        prompt = DualRepOkFewShotCoTPartsOfClassPrompt(classwithprop)
-        model = Model(self.parser.model_path, self.temperature, self.max_tokens, self.n_ctx, prompt)
-        return model.create_chat_completion()
-
-    def _write_output(self, data):
-        self.parser.output_manager.write(data)
