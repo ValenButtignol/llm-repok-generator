@@ -1,11 +1,10 @@
-from classes.model_executor.model_executor_interface import ModelExecutorInterface
+from classes.model_executor.dual_prop_model_executor import DualPropModelExecutor
+from classes.prompt.dual_properties_wholeclass_prompt import DualRepOkFewShotCoTWholeClassPrompt
 
-class DualWholeClassModelExecutor(ModelExecutorInterface):
+class DualWholeClassModelExecutor(DualPropModelExecutor):
+
     def __init__(self):
-        raise NotImplementedError
-
-    def execute(self, model):
-        raise NotImplementedError
+        super().__init__()
     
-    def write_output(self, completion):
-        raise NotImplementedError
+    def _instance_dual_prompt(self, classwithprop):
+        self.dual_prompt = DualRepOkFewShotCoTWholeClassPrompt(classwithprop)
