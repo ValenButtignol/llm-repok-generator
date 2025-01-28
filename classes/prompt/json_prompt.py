@@ -1,5 +1,5 @@
 class JsonPrompt():
-    def __init__(self, raw_class, class_name):
+    def __init__(self, raw_class="", class_name=""):
         self.raw_class = raw_class
         self.class_name = class_name
         self.prompt_data = {"messages":[]}

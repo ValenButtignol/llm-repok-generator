@@ -20,8 +20,8 @@ class DualPropertiesWholeClassPrompt(JsonPrompt):
 
 class DualRepOkFewShotCoTWholeClassPrompt(JsonPrompt):
     def __init__(self, classwithprop):
-
-        self.data = {"messages":[]}
+        super().__init__()
+        
         self.add_role_message("system", SYSTEM_PROMPT_REPOK_AND_PROP)
         
         self.add_user_message(CLASS_EXAMPLE_1 + TEXT_SINGLE_PROP_EXAMPLE_1)
