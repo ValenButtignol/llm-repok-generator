@@ -1,4 +1,4 @@
 class ModelExecutorInterface:
 
     def execute(self, model):
-        pass
+        raise NotImplementedError
