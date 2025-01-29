@@ -1,5 +1,5 @@
 from classes.repok_parser.repok_parser_interface import RepOkParserInterface
-from classes.string_constants import BEGIN_CODE_SNIPPET, END_CODE_SNIPPET, REPOK_CLASS_PREFIX, REPOK_CLASS_SUFFIX, TAB
+from classes.string_constants import BEGIN_CODE_SNIPPET, END_CODE_SNIPPET, REPOK_CLASS_PREFIX, CLASS_SUFFIX, TAB
 
 class SimpleUntaggedRepOkParser(RepOkParserInterface):
 
@@ -21,6 +21,5 @@ class SimpleUntaggedRepOkParser(RepOkParserInterface):
         for line in repOk_text.split("\n"):
             code_snippet += TAB + line + "\n"
         
-        code_snippet += REPOK_CLASS_SUFFIX
-
+        code_snippet += CLASS_SUFFIX
         return code_snippet

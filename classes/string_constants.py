@@ -29,11 +29,11 @@ CLASS_TAG="""[Class]
 """
 REPOK_TAG="""[repOk]
 """
-BEGIN_CODE_SNIPPET="""```java
-"""
-END_CODE_SNIPPET="""
-```"""
+BEGIN_CODE_SNIPPET="""```java"""
+END_CODE_SNIPPET="""```"""
 TAB="    "
 REPOK_CLASS_PREFIX="""public class RepOkClass {\n"""
-REPOK_CLASS_SUFFIX="""\n}\n"""
-REPOK_CLASS_NAME="RepOkClass"
+PROP_CLASS_PREFIX="""public class PropertiesClass {\n"""
+CLASS_SUFFIX="""}\n"""
+PROPERTY_TAG="""[Property]"""
+PROPERTY_METHOD_NAME="property"
