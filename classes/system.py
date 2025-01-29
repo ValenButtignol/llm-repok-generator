@@ -3,8 +3,6 @@ from classes.model import Model
 from classes.model_executor.model_executor_factory import ModelExecutorFactory
 from classes.model_path_factory import ModelPathFactory
 from classes.output_manager.output_manager_factory import OutputManagerFactory
-from classes.prompt.dual_properties_partsofclass_prompt import DualRepOkFewShotCoTPartsOfClassPrompt
-from classes.prompt.dual_properties_wholeclass_prompt import DualRepOkFewShotCoTWholeClassPrompt
 from classes.prompt.prompt_factory import PromptFactory
 from classes.repok_parser.repok_parser_factory import RepOkParserFactory
 
@@ -36,7 +34,7 @@ class System:
         self.repOk_parser = self.repOk_parser_factory.create(self.prompt_type)
 
         self.model = Model(
-            self.parser.model_path, 
+            self.model_path, 
             self.temperature, 
             self.max_tokens, 
             self.n_ctx, 

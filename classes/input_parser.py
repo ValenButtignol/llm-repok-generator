@@ -1,7 +1,4 @@
 from argparse import ArgumentParser
-from classes.model_path_factory import ModelPathFactory
-from classes.prompt.prompt_factory import PromptFactory
-from classes.output_manager.output_manager_factory import OutputManagerFactory
 
 class InputParser:
     def __init__(self):
