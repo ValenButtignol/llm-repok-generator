@@ -9,14 +9,15 @@ class DualPropModelExecutor(ModelExecutorInterface):
     def execute(self, model):
         prop_completion = model.create_chat_completion()
         props = self._parse_properties(prop_completion)
-
         prop_methods = ""
+        class_text = model.prompt.class_text
+
         for prop in props:
-            classwithprop = model.prompt.classtext + prop
+            classwithprop = class_text + prop
             self._instance_dual_prompt(classwithprop)
-            model = Model(model.model_path, model.temperature, model.max_tokens, model.n_ctx, self.dual_prompt)
-            prop_method_completion = model.create_chat_completion()
-            prop_methods += prop_method_completion + "\n"   #TODO: Test if the string is correctly builded
+            model2 = Model(model.model_path, model.temperature, model.max_tokens, model.n_ctx, self.dual_prompt)
+            prop_method_completion = model2.create_chat_completion()
+            prop_methods += prop_method_completion + "\n"
 
         return prop_methods
 
