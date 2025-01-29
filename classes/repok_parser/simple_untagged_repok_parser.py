@@ -12,7 +12,7 @@ class SimpleUntaggedRepOkParser(RepOkParserInterface):
         return repOk_class
     
     def _parse_repOk(self):
-        start = self.repOk_completion.index(BEGIN_CODE_SNIPPET)
+        start = self.repOk_completion.index(BEGIN_CODE_SNIPPET) + len(BEGIN_CODE_SNIPPET)
         end = self.repOk_completion.index(END_CODE_SNIPPET, start)
         return self.repOk_completion[start + len(BEGIN_CODE_SNIPPET):end]
 
