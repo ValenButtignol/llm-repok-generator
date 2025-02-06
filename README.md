@@ -62,11 +62,8 @@ Parameters:
   - `dual-p` for dual prompting with parts of a class repOk.
 - `rc` is the raw class in plain text.
 - `cn` is the class name.
-- `ot` is the output type. It can be "console" or "file".
-- `oc` is the output container. It's necessary when `ot` is "file".
-
 
 For running the tool:
 ```
-python3 main.py -mn "Llama3.1" -pt "global" -ct "PlainTextClass" -cn "NameOfClass" -ot "console"
+python3 main.py -mn "Llama3.1" -pt "global" -rc "PlainTextClass" -cn "NameOfClass"
 ```
