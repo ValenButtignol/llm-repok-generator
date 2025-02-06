@@ -7,8 +7,6 @@ class InputParser:
         self.parser.add_argument("-pt", "--prompt_type", dest="prompt_type", help="format of the prompt", required=True)
         self.parser.add_argument("-rc", "--raw_class", dest="raw_class", help="The plain text class to generate the repOk", required=True)
         self.parser.add_argument("-cn", "--class_name", dest="class_name", help="Name of the class to generate the repOk", required=True)
-        self.parser.add_argument("-ot", "--output_type", dest="output_type", help="type of output", required=True)
-        self.parser.add_argument("-oc", "--output_container", dest="output_container", help="file or None (terminal) containing the output", required=False, default=None)
     
     def parse(self):
         args = self.parser.parse_args()
@@ -16,5 +14,3 @@ class InputParser:
         self.prompt_type = args.prompt_type
         self.raw_class = args.raw_class
         self.class_name = args.class_name
-        self.output_type = args.output_type
-        self.output_container = args.output_container

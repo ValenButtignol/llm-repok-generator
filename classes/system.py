@@ -23,11 +23,9 @@ class System:
         self.prompt_type = self.parser.prompt_type
         self.raw_class = self.parser.raw_class
         self.class_name = self.parser.class_name
-        self.output_type = self.parser.output_type
-        self.output_container = self.parser.output_container
 
     def initialize(self):
-        self.output_manager = self.output_manager_factory.create(self.output_type, self.output_container)
+        self.output_manager = self.output_manager_factory.create(self.prompt_type)
         self.model_path = self.model_path_factory.create(self.model_name)
         self.prompt = self.prompt_factory.create(self.prompt_type, self.raw_class, self.class_name)
         self.model_executor = self.model_executor_factory.create(self.prompt_type)
