@@ -1,5 +1,5 @@
 from classes.output_manager.output_manager_interface import OutputManagerInterface
-from string_constants import OUTPUT_FOLDER
+from classes.string_constants import OUTPUT_FOLDER
 
 class FileOutputManager(OutputManagerInterface):
     def __init__(self, output_file_path):
