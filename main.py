@@ -7,7 +7,6 @@ from classes.system import System
 
 def main():
     system = System()
-    system.initialize()
     system.execute()
 
 if __name__ == "__main__":

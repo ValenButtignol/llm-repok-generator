@@ -1,18 +1,10 @@
+from classes.factories.system_abstract_factory import SystemAbstractFactory
 from classes.input_parser import InputParser
 from classes.model import Model
-from classes.model_executor.model_executor_factory import ModelExecutorFactory
-from classes.model_path_factory import ModelPathFactory
-from classes.output_manager.output_manager_factory import OutputManagerFactory
-from classes.prompt.prompt_factory import PromptFactory
-from classes.repok_parser.repok_parser_factory import RepOkParserFactory
+from classes.factories.model_path_factory import ModelPathFactory
 
 class System:
     def __init__(self):
-        self.model_path_factory = ModelPathFactory()
-        self.output_manager_factory = OutputManagerFactory()
-        self.prompt_factory = PromptFactory()
-        self.model_executor_factory = ModelExecutorFactory()
-        self.repOk_parser_factory = RepOkParserFactory()
         self.parser = InputParser()
         self.parser.parse()
 
@@ -24,12 +16,14 @@ class System:
         self.raw_class = self.parser.raw_class
         self.class_name = self.parser.class_name
 
-    def initialize(self):
-        self.output_manager = self.output_manager_factory.create(self.prompt_type)
-        self.model_path = self.model_path_factory.create(self.model_name)
-        self.prompt = self.prompt_factory.create(self.prompt_type, self.raw_class, self.class_name)
-        self.model_executor = self.model_executor_factory.create(self.prompt_type)
-        self.repOk_parser = self.repOk_parser_factory.create(self.prompt_type)
+        self.model_path_factory = ModelPathFactory(self.model_name)
+        self.model_path = self.model_path_factory.create()
+        self.system_abstract_factory = SystemAbstractFactory(self.prompt_type, self.raw_class, self.class_name)
+        self.prompt_type_factory = self.system_abstract_factory.create() 
+        self.output_manager = self.prompt_type_factory.create_output_manager()
+        self.prompt = self.prompt_type_factory.create_prompt()
+        self.repOk_parser = self.prompt_type_factory.create_repok_parser()
+        self.model_executor = self.prompt_type_factory.create_model_executor()
 
         self.model = Model(
             self.model_path, 
