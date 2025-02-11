@@ -23,8 +23,6 @@ FEWSHOT_PARTSOFCLASS_PROMPT_TYPE="fs-p"
 DUAL_WHOLECLASS_PROMPT_TYPE="dual-w"
 DUAL_PARTSOFCLASS_PROMPT_TYPE="dual-p"
 
-REPOK_CLASS_FILENAME="RepOkClass.java"
-PROPERTIES_CLASS_FILENAME="PropertiesClass.java"
 
 JAVAPARSER_JAR="javaparser-core-3.26.3.jar"
 
@@ -42,8 +40,12 @@ REPOK_TAG="""[repOk]
 BEGIN_CODE_SNIPPET="""```java"""
 END_CODE_SNIPPET="""```"""
 TAB="    "
-REPOK_CLASS_PREFIX="""public class RepOkClass {\n"""
-PROP_CLASS_PREFIX="""public class PropertiesClass {\n"""
 CLASS_SUFFIX="""}\n"""
 PROPERTY_TAG="""[Property]"""
 PROPERTY_METHOD_NAME="property"
+
+def REPOK_CLASS_FILENAME(number):
+    return "RepOkClass" + str(number) + ".java"
+
+def REPOK_CLASS_PREFIX(number):
+    return "public class RepOkClass" + str(number) + "{\n"

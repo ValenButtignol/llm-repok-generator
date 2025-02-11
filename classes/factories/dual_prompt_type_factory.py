@@ -5,7 +5,7 @@ from classes.output_manager.file_output_manager import FileOutputManager
 from classes.prompt.dual_properties_partsofclass_prompt import DualPropertiesPartsOfClassPrompt
 from classes.prompt.dual_properties_wholeclass_prompt import DualPropertiesWholeClassPrompt
 from classes.repok_parser.dual_prop_repok_parser import DualPropRepOkParser
-from classes.string_constants import DUAL_PARTSOFCLASS_PROMPT_TYPE, DUAL_WHOLECLASS_PROMPT_TYPE, PROPERTIES_CLASS_FILENAME
+from classes.string_constants import DUAL_PARTSOFCLASS_PROMPT_TYPE, DUAL_WHOLECLASS_PROMPT_TYPE
 
 
 class DualPromptTypeFactory(PromptTypeFactoryInterface):
@@ -15,7 +15,7 @@ class DualPromptTypeFactory(PromptTypeFactoryInterface):
         self.class_name = class_name
 
     def create_output_manager(self):
-        return FileOutputManager(PROPERTIES_CLASS_FILENAME)
+        return FileOutputManager()
 
     def create_prompt(self):
         if self.prompt_type == DUAL_WHOLECLASS_PROMPT_TYPE:

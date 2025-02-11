@@ -36,5 +36,7 @@ class System:
     def execute(self):
         completion = self.model_executor.execute(self.model)
         self.repOk_parser.set_repOk_completion(completion)
-        repOk_class = self.repOk_parser.parse()
-        self.output_manager.write(repOk_class)
+        repOk_classes = self.repOk_parser.parse()
+        for repOk_class, file_name in repOk_classes:
+            self.output_manager.set_output_file_name(file_name)
+            self.output_manager.write(repOk_class)
