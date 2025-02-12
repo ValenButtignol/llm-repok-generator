@@ -34,6 +34,7 @@ class System:
         )
 
     def execute(self):
+        self.output_manager.clean_output_folder()
         completion = self.model_executor.execute(self.model)
         self.repOk_parser.set_repOk_completion(completion)
         repOk_classes = self.repOk_parser.parse()
