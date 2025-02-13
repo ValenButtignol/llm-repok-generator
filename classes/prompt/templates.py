@@ -10,6 +10,11 @@ USER_PROMPT_PROP_LIST="""Generate a list of properties in plain text that the re
 """
 USER_PROMPT_CHAIN_OF_THOUGT="""Generate a representation invariant that verifies the properties above."""
 
+SYSTEM_PROMPT_SIMPLE="""You are an expert software engineer with proficiency in the Java programming language."""
+
+USER_PROMPT_OPENAI="""### Generate a representation invariant for this class and with no explanation.
+"""
+
 CLASS_EXAMPLE_1="""[Class]
 ```java
 import java.util.HashSet;
