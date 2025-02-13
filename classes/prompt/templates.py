@@ -12,7 +12,7 @@ USER_PROMPT_CHAIN_OF_THOUGT="""Generate a representation invariant that verifies
 
 SYSTEM_PROMPT_SIMPLE="""You are an expert software engineer with proficiency in the Java programming language."""
 
-USER_PROMPT_OPENAI="""### Generate a representation invariant for this class and with no explanation.
+USER_PROMPT_OPENAI="""### Generate a representation invariant for this class. Make sure to only write properties that the class satisfies and with no explanation.
 """
 
 CLASS_EXAMPLE_1="""[Class]
