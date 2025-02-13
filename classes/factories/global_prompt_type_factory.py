@@ -4,9 +4,11 @@ from classes.output_manager.file_output_manager import FileOutputManager
 from classes.prompt.global_repok_fewshot_partsofclass_prompt import GlobalRepOkFewShotPartsOfClassPrompt
 from classes.prompt.global_repok_fewshot_wholeclass_prompt import GlobalRepOkFewShotWholeClassPrompt
 from classes.prompt.global_repok_prompt import GlobalRepOkPrompt
+from classes.prompt.global_repok_fewshot_openai_partsofclass_prompt import GlobalRepOkFewShotOpenAIPartsOfClassPrompt
+from classes.prompt.global_repok_fewshot_openai_wholeclass_prompt import GlobalRepOkFewShotOpenAIWholeClassPrompt
 from classes.repok_parser.simple_tagged_repok_parser import SimpleTaggedRepOkParser
 from classes.repok_parser.simple_untagged_repok_parser import SimpleUntaggedRepOkParser
-from classes.string_constants import FEWSHOT_OPENAI_WHOLECLASS_PROMPT_TYPE, FEWSHOT_PARTSOFCLASS_PROMPT_TYPE, FEWSHOT_WHOLECLASS_PROMPT_TYPE, GLOBAL_PROMPT_TYPE
+from classes.string_constants import FEWSHOT_OPENAI_PARTSOFCLASS_PROMPT_TYPE, FEWSHOT_OPENAI_WHOLECLASS_PROMPT_TYPE, FEWSHOT_PARTSOFCLASS_PROMPT_TYPE, FEWSHOT_WHOLECLASS_PROMPT_TYPE, GLOBAL_PROMPT_TYPE
 
 class GlobalPromptTypeFactory(PromptTypeFactoryInterface):
     def __init__(self, prompt_type, raw_class, class_name):
@@ -25,7 +27,9 @@ class GlobalPromptTypeFactory(PromptTypeFactoryInterface):
         elif self.prompt_type == FEWSHOT_PARTSOFCLASS_PROMPT_TYPE:
             return GlobalRepOkFewShotPartsOfClassPrompt(self.raw_class, self.class_name)
         elif self.prompt_type == FEWSHOT_OPENAI_WHOLECLASS_PROMPT_TYPE:
-            return GlobalRepOkPrompt(self.raw_class, self.class_name)
+            return GlobalRepOkFewShotOpenAIWholeClassPrompt(self.raw_class, self.class_name)
+        elif self.prompt_type == FEWSHOT_OPENAI_PARTSOFCLASS_PROMPT_TYPE:
+            return GlobalRepOkFewShotOpenAIPartsOfClassPrompt(self.raw_class, self.class_name)
 
     def create_repok_parser(self):
         return SimpleUntaggedRepOkParser()
