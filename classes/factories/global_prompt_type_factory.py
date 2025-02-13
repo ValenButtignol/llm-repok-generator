@@ -28,10 +28,7 @@ class GlobalPromptTypeFactory(PromptTypeFactoryInterface):
             return GlobalRepOkPrompt(self.raw_class, self.class_name)
 
     def create_repok_parser(self):
-        if self.prompt_type == GLOBAL_PROMPT_TYPE or self.prompt_type == FEWSHOT_WHOLECLASS_PROMPT_TYPE:
-            return SimpleUntaggedRepOkParser()
-        else:
-            return SimpleTaggedRepOkParser()
+        return SimpleUntaggedRepOkParser()
         
     def create_model_executor(self):
         return SimpleModelExecutor()
