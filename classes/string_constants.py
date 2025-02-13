@@ -2,16 +2,16 @@ LLAMA="Llama3.1"
 LLAMA_NAME="meta-llama-3.1-8b-instruct.Q6_K_L.gguf"
 
 DISTILL_LLAMA="Distill-Llama"
-DISTILL_LLAMA_NAME=""
+DISTILL_LLAMA_NAME="DeepSeek-R1-Distill-Llama-8B-Q6_K_L.gguf"
 
 QWEN="Qwen2.5.1-Coder"
-QWEN_NAME=""
+QWEN_NAME="Qwen2.5.1-Coder-7B-Instruct-Q6_K_L.gguf"
 
 DISTILL_QWEN_7B="Distill-Qwen-7b"
-DISTILL_QWEN_7B_NAME=""
+DISTILL_QWEN_7B_NAME="DeepSeek-R1-Distill-Qwen-7B-Q6_K_L.gguf"
 
 DISTILL_QWEN_14B="Distill-Qwen-14b"
-DISTILL_QWEN_14B_NAME=""
+DISTILL_QWEN_14B_NAME="DeepSeek-R1-Distill-Qwen-14B-Q6_K_L.gguf"
 
 MODELS_FOLDER="models/"
 OUTPUT_FOLDER="output/"
