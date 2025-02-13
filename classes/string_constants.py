@@ -1,5 +1,5 @@
 LLAMA="Llama3.1"
-LLAMA_NAME="meta-llama-3.1-8b-instruct.Q6_K_L.gguf"
+LLAMA_NAME="Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"
 
 DISTILL_LLAMA="Distill-Llama"
 DISTILL_LLAMA_NAME="DeepSeek-R1-Distill-Llama-8B-Q6_K_L.gguf"

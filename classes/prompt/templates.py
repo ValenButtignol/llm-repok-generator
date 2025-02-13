@@ -17,139 +17,170 @@ USER_PROMPT_OPENAI="""### Generate a representation invariant for this class and
 
 CLASS_EXAMPLE_1="""[Class]
 ```java
-import java.util.HashSet;
-import java.util.Set;
-public class Graph {
-    public static class Node {
-        int id;
-        public Node(int id) {
-            this.id = id;
+public class MinHeap {
+    private int[] heap;
+    private int size;
+    private int capacity;
+    public MinHeap(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.heap = new int[capacity];
+    }
+    private int parent(int index) {
+        return (index - 1) / 2;
+    }
+    private int leftChild(int index) {
+        return 2 * index + 1;
+    }
+    private int rightChild(int index) {
+        return 2 * index + 2;
+    }
+    public void insert(int value) {
+        if (size == capacity) {
+            throw new IllegalStateException("Heap is full");
+        }
+        heap[size] = value;
+        int current = size;
+        size++;
+        while (current != 0 && heap[current] < heap[parent(current)]) {
+            swap(current, parent(current));
+            current = parent(current);
         }
     }
-    public static class Edge {
-        Node source;
-        Node destination;
-        public Edge(Node source, Node destination) {
-            this.source = source;
-            this.destination = destination;
+    public int extractMin() {
+        if (size == 0) {
+            throw new IllegalStateException("Heap is empty");
+        }
+        int min = heap[0];
+        heap[0] = heap[size - 1];
+        size--;
+        heapifyDown(0);
+        return min;
+    }
+    private void heapifyDown(int index) {
+        int smallest = index;
+        int left = leftChild(index);
+        int right = rightChild(index);
+        if (left < size && heap[left] < heap[smallest]) {
+            smallest = left;
+        }
+        if (right < size && heap[right] < heap[smallest]) {
+            smallest = right;
+        }
+        if (smallest != index) {
+            swap(index, smallest);
+            heapifyDown(smallest);
         }
     }
-    private Set<Node> nodes;
-    private Set<Edge> edges;
-    public Graph() {
-        nodes = new HashSet<>();
-        edges = new HashSet<>();
-    }
-    public void addNode(int id) {
-        nodes.add(new Node(id));
-    }
-    public void addEdge(int sourceId, int destinationId) {
-        Node source = findNodeById(sourceId);
-        Node destination = findNodeById(destinationId);
-        if (source != null && destination != null) {
-            edges.add(new Edge(source, destination));
-        }
-    }
-    private Node findNodeById(int id) {
-        for (Node node : nodes) {
-            if (node.id == id) {
-                return node;
-            }
-        }
-        return null;
+    private void swap(int i, int j) {
+        int temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
     }
 }
 ```
 """
 
 PARTS_OF_CLASS_1="""[Class signature]
-public class Graph
+public class MinHeap
 [Class attributes]
-private Set<Node> nodes
-private Set<Edge> edges
+private int[] heap;
+private int size;
+private int capacity;
 [Class methods]
-public void addNode(int id) {
-    nodes.add(new Node(id));
+private int parent(int index) {
+    return (index - 1) / 2;
 }
-public void addEdge(int sourceId, int destinationId) {
-    Node source = findNodeById(sourceId);
-    Node destination = findNodeById(destinationId);
-    if (source != null && destination != null) {
-        edges.add(new Edge(source, destination));
+private int leftChild(int index) {
+    return 2 * index + 1;
+}
+private int rightChild(int index) {
+    return 2 * index + 2;
+}
+public void insert(int value) {
+    if (size == capacity) {
+        throw new IllegalStateException("Heap is full");
+    }
+    heap[size] = value;
+    int current = size;
+    size++;
+    while (current != 0 && heap[current] < heap[parent(current)]) {
+        swap(current, parent(current));
+        current = parent(current);
     }
 }
-private Node findNodeById(int id) {
-    for (Node node : nodes) {
-        if (node.id == id) {
-            return node;
-        }
+public int extractMin() {
+    if (size == 0) {
+        throw new IllegalStateException("Heap is empty");
     }
-    return null;
+    int min = heap[0];
+    heap[0] = heap[size - 1];
+    size--;
+    heapifyDown(0);
+    return min;
+}
+private void heapifyDown(int index) {
+    int smallest = index;
+    int left = leftChild(index);
+    int right = rightChild(index);
+    if (left < size && heap[left] < heap[smallest]) {
+        smallest = left;
+    }
+    if (right < size && heap[right] < heap[smallest]) {
+        smallest = right;
+    }
+    if (smallest != index) {
+        swap(index, smallest);
+        heapifyDown(smallest);
+    }
+}
+private void swap(int i, int j) {
+    int temp = heap[i];
+    heap[i] = heap[j];
+    heap[j] = temp;
 }
 """
 
 REPOK_EXAMPLE_1="""[repOk]
 ```java
 public boolean repOk() {
-    if (nodes == null || edges == null) {
-        return false;
-    }
+    for (int i = 0; i < size; i++) {
+        int left = leftChild(i);
+        int right = rightChild(i);
 
-    for (Edge edge : edges) {
-        if (edge == null || edge.source == null || edge.destination == null) {
+        if (left < size && heap[left] < heap[i]) {
             return false;
         }
-        if (!nodes.contains(edge.source) || !nodes.contains(edge.destination)) {
-            return false;
-        }
-    }
-
-    for (Edge edge : edges) {
-        if (edge.source.equals(edge.destination)) {
+        if (right < size && heap[right] < heap[i]) {
             return false;
         }
     }
-
-    Set<Integer> nodeIds = new HashSet<>();
-    for (Node node : nodes) {
-        if (node == null) {
-            return false;
-        }
-        if (!nodeIds.add(node.id)) {
-            return false;
-        }
-    }
-
-    Set<String> edgeSet = new HashSet<>();
-    for (Edge edge : edges) {
-        String edgeKey = edge.source.id + "->" + edge.destination.id;
-        if (!edgeSet.add(edgeKey)) {
-            return false;
-        }
-    }
-
     return true;
-} 
+}
 ```
 """
 
 TEXT_PROP_LIST_EXAMPLE_1="""[Properties]
-- Null checks for sets: Node set and Edge set must be initialized and not null.
-- Edge and edge references validity: Each Edge and its source and destination nodes must be present in the node set and not null.
-- No self-loops: Source and destination nodes in an edge must be different.
-- Node validity and uniqueness: No node object in the node set can be null. There can be no duplicate nodes (HashSet already enforces this).
-- No duplicate edges: There can be no duplicate edges (HashSet already enforces this).
+- Array Bounds. The size of the heap should not exceed the capacity.
+- Heap Property. For every node, the parent should be smaller than or equal to its children.
+- Complete Tree Property. The heap should be a complete binary tree, meaning all levels are fully filled except possibly the last level, which is filled from left to right.
 """
 
 TEXT_SINGLE_PROP_EXAMPLE_1="""[Property]
-- No self-loops. Source and destination nodes in an edge must be different.
+- Heap Property. For every node, the parent should be smaller than or equal to its children.
 """
 
 CODE_SINGLE_PROP_EXAMPLE_1="""[Property]
 ```java
 public boolean property() {
-    for (Edge edge : edges) {
-        if (edge.source.equals(edge.destination)) {
+    for (int i = 0; i < size; i++) {
+        int left = leftChild(i);
+        int right = rightChild(i);
+
+        if (left < size && heap[left] < heap[i]) {
+            return false;
+        }
+        if (right < size && heap[right] < heap[i]) {
             return false;
         }
     }
