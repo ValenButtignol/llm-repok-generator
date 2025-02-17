@@ -25,6 +25,8 @@ class System:
         self.repOk_parser = self.prompt_type_factory.create_repok_parser()
         self.model_executor = self.prompt_type_factory.create_model_executor()
 
+        self.create_meta_suggested_prompt()
+
         self.model = Model(
             self.model_path, 
             self.temperature, 
@@ -36,8 +38,157 @@ class System:
     def execute(self):
         self.output_manager.clean_output_folder()
         completion = self.model_executor.execute(self.model)
-        self.repOk_parser.set_repOk_completion(completion)
-        repOk_classes = self.repOk_parser.parse()
-        for repOk_class, file_name in repOk_classes:
-            self.output_manager.set_output_file_name(file_name)
-            self.output_manager.write(repOk_class)
+        print(repr(self.prompt))
+        print("COMPLETION")
+        print(completion)
+
+        # self.repOk_parser.set_repOk_completion(completion)
+        # repOk_classes = self.repOk_parser.parse()
+        # for repOk_class, file_name in repOk_classes:
+        #     self.output_manager.set_output_file_name(file_name)
+        #     self.output_manager.write(repOk_class)
+
+
+    def create_deepseek_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are a Java code generation assistant. Your task is to write the `repOk` method for Java classes. The `repOk` method checks the representation invariants of the class, ensuring the object is in a valid state.\n\nRules:\n1. Only write the `repOk` method. Do not provide any explanations, comments, or additional code.\n2. The `repOk` method must only check properties that exist in the class. Do not add checks for non-existent properties.\n3. The method must return a `boolean` value (`true` if the object is valid, `false` otherwise).\n4. Use proper Java syntax and follow best practices for writing representation invariants.\n\nYou will be given a Java class as input. Write the `repOk` method for that class.")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "").replace("```java\n", "").replace("```", ""))
+
+        self.prompt = prompt
+
+    def create_openai_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert Java programmer. Your task is to generate the `repOk` method for a given Java class, which checks the representation invariant of the class. The method must:\n- Be consistent with the class definition.\n- Only check properties that are explicitly present in the class.\n- Not include explanations, only output the Java code.\n- Not assume additional properties beyond what is defined.\n- Ensure proper syntax and correctness.\n\nYou will be provided with examples of Java classes and their correct `repOk` methods.")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "").replace("```java\n", "").replace("```", ""))
+        
+        self.prompt = prompt
+
+    def create_meta_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("Write a repOk method for the given Java class. Do not provide explanations, only the repOk method code. Ensure the repOk method is consistent with the provided class and only checks properties that exist in the class.")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Write a repOk method for the following Java class:"))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Write a repOk method for the following Java class:"))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Write a repOk method for the following Java class:"))
+        
+        self.prompt = prompt
+
+    def create_user_tips_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language, first I'll give you some tips, and I need you to remember the tips, and do not make same mistakes.")
+        prompt.add_user_message("Tips 1:\nThe `repOk` method must only check properties that exist in the class. Do not add checks for non-existent properties.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should only check properties that exist in the class.")
+        prompt.add_user_message("Tips 2:\nThe method must return a `boolean` value (`true` if the object is valid, `false` otherwise).")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that the method must return a `boolean` value.")
+        prompt.add_user_message("Tips 3:\nUse proper Java syntax and follow best practices for writing representation invariants.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should use proper Java syntax and follow best practices.")
+        prompt.add_user_message("Tips 4:\nDo not provide explanations, only the repOk method code.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should not provide explanations, only the repOk method code.")
+        
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Write a repOk method for the following Java class:"))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Write a repOk method for the following Java class:"))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Write a repOk method for the following Java class:"))
+        
+        self.prompt = prompt
+
+    def create_user_tips_openai_format_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+        
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language, first I'll give you some tips, and I need you to remember the tips, and do not make same mistakes.")
+        prompt.add_user_message("### The `repOk` method must only check properties that exist in the class. Do not add checks for non-existent properties.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should only check properties that exist in the class.")
+        prompt.add_user_message("### The method must return a `boolean` value (`true` if the object is valid, `false` otherwise).")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that the method must return a `boolean` value.")
+        prompt.add_user_message("### Use proper Java syntax and follow best practices for writing representation invariants.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should use proper Java syntax and follow best practices.")
+        prompt.add_user_message("### Do not provide explanations, only the repOk method code.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should not provide explanations, only the repOk method code.")
+        
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "### Write a repOk method for the following Java class:").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "### Write a repOk method for the following Java class:").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "### Write a repOk method for the following Java class:").replace("```java\n", "").replace("```", ""))
+
+        self.prompt = prompt
+
+    def create_QA_openai_format_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "### Here is a Java class:\n").replace("```java\n", "").replace("```", "") + "\n### What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code.")
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "### Here is a Java class:\n").replace("```java\n", "").replace("```", "") + "\n### What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code.")
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "### Here is a Java class:\n").replace("```java\n", "").replace("```", "") + "\n### What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code.")
+
+        self.prompt = prompt
+
+    def create_QA_code_format_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "/* Here is a Java class: */\n").replace("```java\n", "").replace("```", "") + "\n/* What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code. */")
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "/* Here is a Java class: */\n").replace("```java\n", "").replace("```", "") + "\n/* What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code. */")
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "/* Here is a Java class: */\n").replace("```java\n", "").replace("```", "") + "\n/* What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code. */")
+
+        self.prompt = prompt
+
+    def create_fewshot_openai_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "### Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.\n### Class:\n").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "### Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.\n### Class:\n").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "### Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.\n### Class:\n").replace("```java\n", "").replace("```", ""))
+
+        self.prompt = prompt
+
+    def create_fewshot_code_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "/* Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.*/\n/* Class: */\n").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "/* Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.*/\n/* Class: */\n").replace("```java\n", "").replace("```", ""))
+        prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "/* Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.*/\n/* Class: */\n").replace("```java\n", "").replace("```", ""))
+
+        self.prompt = prompt
