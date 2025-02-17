@@ -21,3 +21,12 @@ class JsonPrompt():
 
     def add_system_message(self, message):
         self.add_role_message("system", message)
+
+    def __repr__(self):
+        string = ""
+        for message in self.prompt_data["messages"]:
+            string += f"{message['role']}:"
+            string += f"{message['content']}"
+            string += "\n\n"
+        return string
+    
