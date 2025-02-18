@@ -39,8 +39,8 @@ class System:
         self.output_manager.clean_output_folder()
         completion = self.model_executor.execute(self.model)
         print(repr(self.prompt))
-        print("COMPLETION")
-        print(completion)
+        print("TIME")
+        print(self.model.time)
 
         # self.repOk_parser.set_repOk_completion(completion)
         # repOk_classes = self.repOk_parser.parse()
@@ -272,4 +272,24 @@ class System:
         prompt.add_system_message("Generate a list of properties that can be verified through the representation invariant of the given Java class. These properties should be true for all valid instances of the class. Minimize the properties to only those that can be directly inferred from the class definition. Use the following format for each property: - Property: Short description")
         prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Analyze the following Java class and generate the list of properties:\n") + "\n\nProvide the representation invariants in the required format.")
         
+        self.prompt = prompt
+
+    def create_meta_zeroshot_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("Write a repOk method for the given Java class. Do not provide explanations, only the repOk method code. Ensure the repOk method is consistent with the provided class and only checks properties that exist in the class.")
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Write a repOk method for the following Java class:"))
+        
+        self.prompt = prompt
+
+    def create_QA_zeroshot_code_format_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language")
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "/* Here is a Java class: */\n").replace("```java\n", "").replace("```", "") + "\n/* What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code. */")
+
         self.prompt = prompt
