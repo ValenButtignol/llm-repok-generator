@@ -235,16 +235,26 @@ class System:
 
         self.prompt = prompt
 
-    def create_props_deepseek_fomat(self):
+    def create_props_deepseek_format(self):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, CLASS_EXAMPLE_3
         prompt = JsonPrompt()
 
         prompt.add_system_message("You are a Java code analysis tool. Your task is to analyze a given Java class and generate a list of properties that must hold true for valid instances of the class. These properties should be derived from the representation invariant of the class. Ensure that the properties are minimal, meaning they should not include any unnecessary or redundant conditions. Each property should be listed in the following format:\n\n- Property: Short description")
         prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
-        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1).replace("[Properties]\n", "")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1.replace("[Properties]\n", ""))
         prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
-        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2).replace("[Properties]\n", "")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2.replace("[Properties]\n", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
+
+        self.prompt = prompt
+    
+    def create_zeroshot_props_deepseek_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are a Java code analysis tool. Your task is to analyze a given Java class and generate a list of properties that must hold true for valid instances of the class. These properties should be derived from the representation invariant of the class. Ensure that the properties are minimal, meaning they should not include any unnecessary or redundant conditions. Each property should be listed in the following format:\n\n- Property: Short description")
         prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
 
         self.prompt = prompt
@@ -256,15 +266,39 @@ class System:
 
         prompt.add_system_message("You are an expert Java software engineer. Your task is to analyze Java classes and extract valid representation invariants in a structured list format. \n\nOnly include properties that are always true for valid instances of the class. Do not invent new properties or assume behavior beyond the provided code.")
         prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
-        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1).replace("[Properties]\n", "")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1.replace("[Properties]\n", ""))
         prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
-        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2).replace("[Properties]\n", "")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2.replace("[Properties]\n", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
+        
+        self.prompt = prompt
+
+    def create_zeroshot_props_openai_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert Java software engineer. Your task is to analyze Java classes and extract valid representation invariants in a structured list format. \n\nOnly include properties that are always true for valid instances of the class. Do not invent new properties or assume behavior beyond the provided code.")
         prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
         
         self.prompt = prompt
 
 
     def create_props_meta_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_3, CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("Generate a list of properties that can be verified through the representation invariant of the given Java class. These properties should be true for all valid instances of the class. Minimize the properties to only those that can be directly inferred from the class definition. Use the following format for each property: - Property: Short description")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Analyze the following Java class and generate the list of properties:\n") + "\n\nProvide the representation invariants in the required format.")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1.replace("[Properties]\n", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Analyze the following Java class and generate the list of properties:\n") + "\n\nProvide the representation invariants in the required format.")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2.replace("[Properties]\n", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Analyze the following Java class and generate the list of properties:\n") + "\n\nProvide the representation invariants in the required format.")
+        
+        self.prompt = prompt
+
+    def create_zeroshot_props_meta_format(self):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_3
         prompt = JsonPrompt()
