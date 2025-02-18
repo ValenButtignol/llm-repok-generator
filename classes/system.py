@@ -136,6 +136,48 @@ class System:
         prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "### Write a repOk method for the following Java class:").replace("```java\n", "").replace("```", ""))
 
         self.prompt = prompt
+    
+    def create_user_zeroshot_tips_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language, first I'll give you some tips, and I need you to remember the tips, and do not make same mistakes.")
+        prompt.add_user_message("Tips 1:\nThe `repOk` method must only check properties that exist in the class. Do not add checks for non-existent properties.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should only check properties that exist in the class.")
+        prompt.add_user_message("Tips 2:\nThe method must return a `boolean` value (`true` if the object is valid, `false` otherwise).")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that the method must return a `boolean` value.")
+        prompt.add_user_message("Tips 3:\nUse proper Java syntax and follow best practices for writing representation invariants.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should use proper Java syntax and follow best practices.")
+        prompt.add_user_message("Tips 4:\nDo not provide explanations, only the repOk method code.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should not provide explanations, only the repOk method code.")
+        
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Write a repOk method for the following Java class:"))
+        
+        self.prompt = prompt
+    
+    
+    def create_user_oneshot_tips_suggested_prompt(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, REPOK_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert software engineer with proficiency in the Java programming language, first I'll give you some tips, and I need you to remember the tips, and do not make same mistakes.")
+        prompt.add_user_message("Tips 1:\nThe `repOk` method must only check properties that exist in the class. Do not add checks for non-existent properties.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should only check properties that exist in the class.")
+        prompt.add_user_message("Tips 2:\nThe method must return a `boolean` value (`true` if the object is valid, `false` otherwise).")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that the method must return a `boolean` value.")
+        prompt.add_user_message("Tips 3:\nUse proper Java syntax and follow best practices for writing representation invariants.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should use proper Java syntax and follow best practices.")
+        prompt.add_user_message("Tips 4:\nDo not provide explanations, only the repOk method code.")
+        prompt.add_assistant_message("Thank you for the tip! I'll keep in mind that I should not provide explanations, only the repOk method code.")
+        
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Write a repOk method for the following Java class:"))
+        prompt.add_assistant_message(REPOK_EXAMPLE_1.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Write a repOk method for the following Java class:"))
+        
+        self.prompt = prompt
+
 
     def create_QA_openai_format_prompt(self):
         from classes.prompt.json_prompt import JsonPrompt
@@ -191,4 +233,43 @@ class System:
         prompt.add_assistant_message(REPOK_EXAMPLE_2.replace("[repOk]", "").replace("```java\n", "").replace("```", ""))
         prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "/* Generate a representation invariant for this class. Ensure that the repOk you generate returns true when run on valid instances of the class and false otherwise. Do not provide any explanation.*/\n/* Class: */\n").replace("```java\n", "").replace("```", ""))
 
+        self.prompt = prompt
+
+    def create_props_deepseek_fomat(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are a Java code analysis tool. Your task is to analyze a given Java class and generate a list of properties that must hold true for valid instances of the class. These properties should be derived from the representation invariant of the class. Ensure that the properties are minimal, meaning they should not include any unnecessary or redundant conditions. Each property should be listed in the following format:\n\n- Property: Short description")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1).replace("[Properties]\n", "")
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2).replace("[Properties]\n", "")
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Here is a Java class:\n\n") + "\n\nPlease generate the properties that must hold true for valid instances of this class.")
+
+        self.prompt = prompt
+
+    def create_props_openai_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("You are an expert Java software engineer. Your task is to analyze Java classes and extract valid representation invariants in a structured list format. \n\nOnly include properties that are always true for valid instances of the class. Do not invent new properties or assume behavior beyond the provided code.")
+        prompt.add_user_message(CLASS_EXAMPLE_1.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_1).replace("[Properties]\n", "")
+        prompt.add_user_message(CLASS_EXAMPLE_2.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
+        prompt.add_assistant_message(TEXT_PROP_LIST_EXAMPLE_2).replace("[Properties]\n", "")
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Analyze the following Java class and extract valid representation invariants. Only list properties that are always true for valid instances of the class.\n\n") + "\n\nProvide the representation invariants in the required format.")
+        
+        self.prompt = prompt
+
+
+    def create_props_meta_format(self):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_3
+        prompt = JsonPrompt()
+
+        prompt.add_system_message("Generate a list of properties that can be verified through the representation invariant of the given Java class. These properties should be true for all valid instances of the class. Minimize the properties to only those that can be directly inferred from the class definition. Use the following format for each property: - Property: Short description")
+        prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "Analyze the following Java class and generate the list of properties:\n") + "\n\nProvide the representation invariants in the required format.")
+        
         self.prompt = prompt
