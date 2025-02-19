@@ -37,9 +37,13 @@ class System:
 
     def execute(self):
         props = [
+"Consistent size: The size attribute must be equal to the number of nodes in the list.",
+"Non-cyclicity: The list should not contain any cycles, meaning there should be no node that points back to a previous node in the list.",
+"Proper linking: Each node's next pointer should correctly point to the next node in the list, except for the last node, which should have a next pointer set to null.",
+"Head integrity: The head pointer should correctly point to the first node in the list, or be null if the list is empty."
 
         ]
-        self.create_props_deepseek_format(props)
+        self.create_props_fewshot_deepseek(props)
 
         # self.output_manager.clean_output_folder()
         # completion = self.model_executor.execute(self.model)
