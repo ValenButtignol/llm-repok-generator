@@ -337,7 +337,7 @@ class System:
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_1, CLASS_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2, TEXT_SINGLE_PROP_EXAMPLE_2, CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -351,16 +351,17 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
+        print(props_and_time)
+
 
     def create_props_zeroshot_deepseek(self, props):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -370,17 +371,16 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
         print(props_and_time)
 
     def create_props_fewshot_meta(self, props):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_1, CLASS_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2, TEXT_SINGLE_PROP_EXAMPLE_2, CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -394,10 +394,9 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
         print(props_and_time)
 
 
@@ -405,7 +404,7 @@ class System:
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -415,17 +414,16 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
         print(props_and_time)
 
     def create_props_zeroshot_meta(self, props):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -435,17 +433,16 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
         print(props_and_time)
 
     def create_props_fewshot_openai(self, props):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_1, CLASS_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2, TEXT_SINGLE_PROP_EXAMPLE_2, CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -461,17 +458,16 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
         print(props_and_time)
 
     def create_props_zeroshot_openai(self, props):
         from classes.prompt.json_prompt import JsonPrompt
         from classes.prompt.templates import CLASS_EXAMPLE_3
 
-        props_and_time = []
+        props_and_time = ""
 
         for prop in props:
             prompt = JsonPrompt()
@@ -481,8 +477,7 @@ class System:
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
             model2.create_chat_completion()
 
-            props_and_time.append("*****************************************************")
-            props_and_time.append(repr(self.prompt))
-            props_and_time.append("TIME")
-            props_and_time.append(self.model.time)
+            props_and_time += "\n*****************************************************\n"
+            props_and_time += (repr(self.prompt))
+            props_and_time += ("\nTIME:" + model2.time + "\n")
         print(props_and_time)
