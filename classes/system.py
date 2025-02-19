@@ -353,7 +353,7 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
 
 
@@ -373,7 +373,7 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
 
     def create_props_fewshot_meta(self, props):
@@ -396,7 +396,7 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
 
 
@@ -416,7 +416,7 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
 
     def create_props_zeroshot_meta(self, props):
@@ -435,7 +435,7 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
 
     def create_props_fewshot_openai(self, props):
@@ -460,7 +460,7 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
 
     def create_props_zeroshot_openai(self, props):
@@ -479,5 +479,5 @@ class System:
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
-            props_and_time += ("\nTIME:" + model2.time + "\n")
+            props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         print(props_and_time)
