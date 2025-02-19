@@ -358,7 +358,9 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
 
 
     def create_props_zeroshot_deepseek(self, props):
@@ -378,7 +380,8 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
 
     def create_props_fewshot_meta(self, props):
         from classes.prompt.json_prompt import JsonPrompt
@@ -401,7 +404,8 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
 
 
     def create_props_fewshot_meta_v2(self, props):
@@ -421,7 +425,8 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
 
     def create_props_zeroshot_meta(self, props):
         from classes.prompt.json_prompt import JsonPrompt
@@ -440,7 +445,8 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
 
     def create_props_fewshot_openai(self, props):
         from classes.prompt.json_prompt import JsonPrompt
@@ -465,7 +471,8 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
 
     def create_props_zeroshot_openai(self, props):
         from classes.prompt.json_prompt import JsonPrompt
@@ -484,4 +491,5 @@ class System:
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
-        print(props_and_time)
+        with open("output.txt", "w") as f:
+            f.write(props_and_time)
