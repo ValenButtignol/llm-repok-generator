@@ -36,11 +36,16 @@ class System:
         )
 
     def execute(self):
-        self.output_manager.clean_output_folder()
-        completion = self.model_executor.execute(self.model)
-        print(repr(self.prompt))
-        print("TIME")
-        print(self.model.time)
+        props = [
+
+        ]
+        self.create_props_deepseek_format(props)
+
+        # self.output_manager.clean_output_folder()
+        # completion = self.model_executor.execute(self.model)
+        # print(repr(self.prompt))
+        # print("TIME")
+        # print(self.model.time)
 
         # self.repOk_parser.set_repOk_completion(completion)
         # repOk_classes = self.repOk_parser.parse()
@@ -327,3 +332,137 @@ class System:
         prompt.add_user_message(CLASS_EXAMPLE_3.replace("[Class]", "/* Here is a Java class: */\n").replace("```java\n", "").replace("```", "") + "\n/* What is the `repOk` method for this class? Do not add checks for non-existent properties, and do not provide explanations, only the repOk method code. */")
 
         self.prompt = prompt
+
+    def create_props_fewshot_deepseek(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_1, CLASS_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2, TEXT_SINGLE_PROP_EXAMPLE_2, CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+            prompt.add_system_message("You are a Java programming expert. Your task is to write a `property` method for a given Java class. The method must check whether a specific property (provided as input) is part of the class's representation invariant. Follow these rules:\n1. Write only the `property` method. Do not include any explanations or additional code.\n2. Use the best Java programming practices, including proper null checks, validation, and efficient logic.\n3. The method must be named `property` and return a `boolean`.\n4. Assume the class and its fields are already defined. Do not redefine the class or its fields.\n5. Focus only on the property provided in the input.")
+            prompt.add_user_message("Here is a Java class:\n" + CLASS_EXAMPLE_1.replace("[Class]", "") + "\nThe property to check is: " + TEXT_SINGLE_PROP_EXAMPLE_1.replace("[Property]\n- ", ""))
+            prompt.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_1.replace("[Property]\n", ""))
+            prompt.add_user_message("Here is a Java class:\n" + CLASS_EXAMPLE_2.replace("[Class]", "") + "\nThe property to check is: " + TEXT_SINGLE_PROP_EXAMPLE_2.replace("[Property]\n- ", ""))
+            prompt.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_2.replace("[Property]\n", ""))
+            prompt.add_user_message("Here is a Java class:\n" + CLASS_EXAMPLE_3.replace("[Class]", "") + "\nThe property to check is: " + prop)
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
+
+    def create_props_zeroshot_deepseek(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+            prompt.add_system_message("You are a Java programming expert. Your task is to write a `property` method for a given Java class. The method must check whether a specific property (provided as input) is part of the class's representation invariant. Follow these rules:\n1. Write only the `property` method. Do not include any explanations or additional code.\n2. Use the best Java programming practices, including proper null checks, validation, and efficient logic.\n3. The method must be named `property` and return a `boolean`.\n4. Assume the class and its fields are already defined. Do not redefine the class or its fields.\n5. Focus only on the property provided in the input.")
+            prompt.add_user_message("Here is a Java class:\n" + CLASS_EXAMPLE_3.replace("[Class]", "") + "\nThe property to check is:" + prop)
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
+
+    def create_props_fewshot_meta(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_1, CLASS_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2, TEXT_SINGLE_PROP_EXAMPLE_2, CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+            prompt.add_system_message("Write a Java method named \"property\" that checks if the given property of the class holds true. Use best practices for Java coding. Provide the method in the format of public boolean property() { return /* condition */; }. Do not provide explanations.")
+            prompt.add_user_message("Please write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_1.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + TEXT_SINGLE_PROP_EXAMPLE_1.replace("[Property]\n- ", ""))
+            prompt.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_1.replace("[Property]\n```java", "").replace("```", ""))
+            prompt.add_user_message("Please write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_2.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + TEXT_SINGLE_PROP_EXAMPLE_2.replace("[Property]\n- ", ""))
+            prompt.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_2.replace("[Property]\n```java", "").replace("```", ""))
+            prompt.add_user_message("Please write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + prop)
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
+
+
+    def create_props_fewshot_meta_v2(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+            prompt.add_system_message("Write a Java method named \"property\" that checks if the given property of the class holds true. Use best practices for Java coding. Provide the method in the format of public boolean property() { return /* condition */; }. Do not provide explanations.")
+            prompt.add_user_message("Here are a few examples of Java methods that check properties:\n\npublic boolean property() { return x > 0; }\npublic boolean property() { return list.size() > 0; }\npublic boolean property() { return str != null && !str.isEmpty(); }\n\nPlease write the Java method \"property\" for the following class:\n\nPlease write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + prop)
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
+
+    def create_props_zeroshot_meta(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+            prompt.add_system_message("Write a Java method named \"property\" that checks if the given property of the class holds true. Use best practices for Java coding. Provide the method in the format of public boolean property() { return /* condition */; }. Do not provide explanations.")
+            prompt.add_user_message("Please write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + prop)
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
+
+    def create_props_fewshot_openai(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_1, CLASS_EXAMPLE_2, CODE_SINGLE_PROP_EXAMPLE_2, TEXT_SINGLE_PROP_EXAMPLE_2, CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+
+            prompt.add_system_message("You are a Java expert specializing in formal verification and representation invariants. Your task is to generate a `property` method for the given Java class. This method must implement the given property as a boolean condition.\n\nFollow these guidelines:\n- Implement the method using the best Java programming techniques.\n- Do not provide any explanation, only return the Java method.\n- Format the method consistently based on the given examples.")
+            prompt.add_system_message("You are a Java expert specializing in formal verification and representation invariants. Your task is to generate a `property` method for the given Java class. This method must implement the given property as a boolean condition.\n\nFollow these guidelines:\n- Implement the method using the best Java programming techniques.\n- Do not provide any explanation, only return the Java method.\n- Format the method consistently based on the given examples.")
+            prompt.add_user_message("Here is the Java class:\n\n" + CLASS_EXAMPLE_1.replace("[Class]\n", "") + "\n\nProperty to verify:\n" + TEXT_SINGLE_PROP_EXAMPLE_1.replace("[Property]\n") + "\n\nGenerate the following boolean method inside the class:\n\n```java\npublic boolean property() { ... }\n```\n\nEnsure the method correctly enforces the given property.")
+            prompt.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_1.replace("[Property]", ""))
+            prompt.add_user_message("Here is the Java class:\n\n" + CLASS_EXAMPLE_2.replace("[Class]\n", "") + "\n\nProperty to verify:\n" + TEXT_SINGLE_PROP_EXAMPLE_2.replace("[Property]\n") + "\n\nGenerate the following boolean method inside the class:\n\n```java\npublic boolean property() { ... }\n```\n\nEnsure the method correctly enforces the given property.")
+            prompt.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_1.replace("[Property]", ""))
+            prompt.add_user_message("Here is the Java class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n", "") + "\n\nProperty to verify:\n" + prop + "\n\nGenerate the following boolean method inside the class:\n\n```java\npublic boolean property() { ... }\n```\n\nEnsure the method correctly enforces the given property.")
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
+
+    def create_props_zeroshot_openai(self, props):
+        from classes.prompt.json_prompt import JsonPrompt
+        from classes.prompt.templates import CLASS_EXAMPLE_3
+
+        for prop in props:
+            prompt = JsonPrompt()
+            prompt.add_system_message("You are a Java expert specializing in formal verification and representation invariants. Your task is to generate a `property` method for the given Java class. This method must implement the given property as a boolean condition.\n\nFollow these guidelines:\n- Implement the method using the best Java programming techniques.\n- Do not provide any explanation, only return the Java method.\n- Format the method consistently based on the given examples.")
+            prompt.add_user_message("Here is the Java class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n", "") + "\n\nProperty to verify:\n" + prop + "\n\nGenerate the following boolean method inside the class:\n\n```java\npublic boolean property() { ... }\n```\n\nEnsure the method correctly enforces the given property.")
+
+            model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
+            model2.create_chat_completion()
+
+            print("*****************************************************")
+            print(repr(self.prompt))
+            print("TIME")
+            print(self.model.time)
