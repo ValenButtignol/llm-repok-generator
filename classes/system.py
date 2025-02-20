@@ -356,9 +356,9 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         
         with open("output.txt", "w") as f:
             f.write(props_and_time)
@@ -379,9 +379,9 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         with open("output.txt", "w") as f:
             f.write(props_and_time)
 
@@ -404,9 +404,9 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         with open("output.txt", "w") as f:
             f.write(props_and_time)
 
@@ -426,9 +426,9 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         with open("output.txt", "w") as f:
             f.write(props_and_time)
 
@@ -447,9 +447,9 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         with open("output.txt", "w") as f:
             f.write(props_and_time)
 
@@ -474,9 +474,9 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         with open("output.txt", "w") as f:
             f.write(props_and_time)
 
@@ -495,8 +495,8 @@ class System:
             completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
-            props_and_time += (repr(self.prompt))
             props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
+        props_and_time += (repr(prompt))
         with open("output.txt", "w") as f:
             f.write(props_and_time)
