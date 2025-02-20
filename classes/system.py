@@ -353,10 +353,11 @@ class System:
             prompt.add_user_message("Here is a Java class:\n" + CLASS_EXAMPLE_3.replace("[Class]", "") + "\nThe property to check is: " + prop)
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         
         with open("output.txt", "w") as f:
@@ -375,10 +376,11 @@ class System:
             prompt.add_user_message("Here is a Java class:\n" + CLASS_EXAMPLE_3.replace("[Class]", "") + "\nThe property to check is:" + prop)
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         with open("output.txt", "w") as f:
             f.write(props_and_time)
@@ -399,10 +401,11 @@ class System:
             prompt.add_user_message("Please write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + prop)
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         with open("output.txt", "w") as f:
             f.write(props_and_time)
@@ -420,10 +423,11 @@ class System:
             prompt.add_user_message("Here are a few examples of Java methods that check properties:\n\npublic boolean property() { return x > 0; }\npublic boolean property() { return list.size() > 0; }\npublic boolean property() { return str != null && !str.isEmpty(); }\n\nPlease write the Java method \"property\" for the following class:\n\nPlease write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + prop)
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         with open("output.txt", "w") as f:
             f.write(props_and_time)
@@ -440,10 +444,11 @@ class System:
             prompt.add_user_message("Please write the Java method \"property\" for the following class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n```java", "").replace("```", "") + "\n\nProperty: " + prop)
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         with open("output.txt", "w") as f:
             f.write(props_and_time)
@@ -466,10 +471,11 @@ class System:
             prompt.add_user_message("Here is the Java class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n", "") + "\n\nProperty to verify:\n" + prop + "\n\nGenerate the following boolean method inside the class:\n\n```java\npublic boolean property() { ... }\n```\n\nEnsure the method correctly enforces the given property.")
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         with open("output.txt", "w") as f:
             f.write(props_and_time)
@@ -486,10 +492,11 @@ class System:
             prompt.add_user_message("Here is the Java class:\n\n" + CLASS_EXAMPLE_3.replace("[Class]\n", "") + "\n\nProperty to verify:\n" + prop + "\n\nGenerate the following boolean method inside the class:\n\n```java\npublic boolean property() { ... }\n```\n\nEnsure the method correctly enforces the given property.")
 
             model2 = Model(self.model.model_path, self.model.temperature, self.model.max_tokens, self.model.n_ctx, prompt)
-            model2.create_chat_completion()
+            completion = model2.create_chat_completion()
 
             props_and_time += "\n*****************************************************\n"
             props_and_time += (repr(self.prompt))
+            props_and_time += completion
             props_and_time += ("\nTIME:" + str(model2.time) + "\n")
         with open("output.txt", "w") as f:
             f.write(props_and_time)
