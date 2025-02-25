@@ -143,7 +143,7 @@ private void swap(int i, int j) {
 
 REPOK_EXAMPLE_1="""[repOk]
 ```java
-public boolean repOk() {
+public boolean repOK() {
     for (int i = 0; i < size; i++) {
         int left = leftChild(i);
         int right = rightChild(i);
