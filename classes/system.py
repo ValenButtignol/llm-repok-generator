@@ -181,7 +181,7 @@ class System:
         prompt = JsonPrompt()
 
         prompt.add_system_message("### You are an expert software engineer with proficiency in the Java programming language.")
-        prompt.add_user_message("### Your task is to provide a list of properties of representation invariants for Java classes as plain text.\n### Write a list of properties for the LinkedList class.\n" + CLASS_EXAMPLE_3.replace("[Class]\n","") + "\n### Properties:\n")
+        prompt.add_user_message("### Your task is to provide a list of properties of representation invariants for Java classes as plain text. Answer by giving the list of properties with the format \"- Property Name: Short Description.\".\n### Write a list of properties for the LinkedList class.\n" + CLASS_EXAMPLE_3.replace("[Class]\n","") + "\n### Properties:\n")
 
         self.prompt = prompt
 
@@ -248,7 +248,7 @@ class System:
         from classes.prompt.templates import CLASS_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_1, CLASS_EXAMPLE_2, TEXT_PROP_LIST_EXAMPLE_2, CLASS_EXAMPLE_3
         prompt = JsonPrompt()
 
-        prompt.add_system_message("### You are an expert software engineer with proficiency in the Java programming language. Your task is to provide a list of properties of representation invariants for Java classes as plain text.")
+        prompt.add_system_message("### You are an expert software engineer with proficiency in the Java programming language. Your task is to provide a list of properties of representation invariants for Java classes as plain text. Answer by giving the list of properties with the format \"- Property Name: Short Description.\".")
         prompt.add_user_message("### Write a list of properties for the LinkedList class.\n" + CLASS_EXAMPLE_3.replace("[Class]\n","") + "\n### Properties:\n")
 
         self.prompt = prompt
