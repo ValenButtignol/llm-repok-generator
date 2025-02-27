@@ -25,7 +25,7 @@ class JsonPrompt():
     def __repr__(self):
         string = ""
         for message in self.prompt_data["messages"]:
-            string += f"{message['role']}:"
+            string += f"{message['role']}:\n"
             string += f"{message['content']}"
             string += "\n\n"
         return string
