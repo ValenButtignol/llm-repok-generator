@@ -28,22 +28,16 @@ FEWSHOT_OPENAI_PARTSOFCLASS_PROMPT_TYPE="fs-openai-p"
 
 JAVAPARSER_JAR="javaparser-core-3.26.3.jar"
 
-CLASS_SIGNATURE="""[Class Signature]
-"""
-CLASS_ATTRS="""[Class Attributes]
-"""
-CLASS_METHODS="""[Class Methods]
-"""
+CLASS_SIGNATURE="### Class Signature\n"
+CLASS_ATTRS="### Class Attributes\n"
+CLASS_METHODS="### Class Methods\n"
 
-CLASS_TAG="""[Class]
-"""
-REPOK_TAG="""[repOk]
-"""
-BEGIN_CODE_SNIPPET="""```java"""
-END_CODE_SNIPPET="""```"""
+REPOK_TAG="### repOK\n"
+BEGIN_CODE_SNIPPET="```java\n"
+END_CODE_SNIPPET="\n```"
 TAB="    "
 CLASS_SUFFIX="""}\n"""
-PROPERTY_TAG="""[Property]"""
+PROPERTY_TAG="""[Property]"""   #TODO: Delete
 PROPERTY_METHOD_NAME="property"
 
 def REPOK_CLASS_FILENAME(number):
