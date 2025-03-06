@@ -22,6 +22,9 @@ class JsonPrompt():
     def add_system_message(self, message):
         self.add_role_message("system", message)
 
+    def clean_prompt_data(self):
+        self.prompt_data = {"messages":[]}
+
     def __repr__(self):
         string = ""
         for message in self.prompt_data["messages"]:

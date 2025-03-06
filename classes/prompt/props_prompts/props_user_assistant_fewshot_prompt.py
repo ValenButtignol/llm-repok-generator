@@ -1,4 +1,5 @@
 from classes.prompt.json_prompt import JsonPrompt
+from classes.prompt.props_prompts.code_prompt import CodePrompt
 from classes.prompt.templates import CLASS_EXAMPLE_1, CLASS_EXAMPLE_2, CLASS_NAME_EXAMPLE_1, CLASS_NAME_EXAMPLE_2, CODE_PROP_BASIC_PROMPT, CODE_PROP_END_OF_PROMPT, CODE_PROP_USER_TASK, CODE_SINGLE_PROP_EXAMPLE_1, CODE_SINGLE_PROP_EXAMPLE_2, REPOK_BASIC_PROMPT, SYSTEM_PROMPT, TEXT_PROP_END_OF_PROMPT, TEXT_PROP_LIST_EXAMPLE_1, TEXT_PROP_LIST_EXAMPLE_2, TEXT_PROP_USER_TASK, TEXT_SINGLE_PROP_EXAMPLE_1, TEXT_SINGLE_PROP_EXAMPLE_2
 from classes.class_format.whole_class_format import WholeClassFormat 
 
@@ -28,10 +29,11 @@ class TextPropsUserAssistantFewShotPrompt(JsonPrompt):
         user_prompt += TEXT_PROP_END_OF_PROMPT
         self.add_user_message(user_prompt)
 
-class CodePropUserAssistantFewShotPrompt(JsonPrompt):
-    def __init__(self, classwithprop, class_name):
-        super().__init__()
+class CodePropUserAssistantFewShotPrompt(CodePrompt):
+    def __init__(self, raw_class, class_name):
+        super().__init__(raw_class, class_name)
 
+    def template(self):
         self.add_system_message(SYSTEM_PROMPT)
         
         user_prompt = CODE_PROP_BASIC_PROMPT
@@ -49,7 +51,7 @@ class CodePropUserAssistantFewShotPrompt(JsonPrompt):
         self.add_user_message(user_prompt)
         self.add_assistant_message(CODE_SINGLE_PROP_EXAMPLE_2)
 
-        user_prompt = CODE_PROP_USER_TASK(class_name)
-        user_prompt += classwithprop
+        user_prompt = CODE_PROP_USER_TASK(self.class_name)
+        user_prompt += self.classwithprop
         user_prompt += CODE_PROP_END_OF_PROMPT
         self.add_user_message(user_prompt)
