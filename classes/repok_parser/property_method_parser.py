@@ -8,7 +8,7 @@ class PropertyMethodParser(RepOkParserInterface):
 
     def parse(self) -> str:
         code_properties = self._parse_code_properties()
-        code_properties = self._enumerate_properties(code_properties)
+        self._enumerate_properties(code_properties)
         return self._build_repOk_classes(code_properties)
     
     def _parse_code_properties(self):

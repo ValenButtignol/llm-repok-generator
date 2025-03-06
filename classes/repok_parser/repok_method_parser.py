@@ -27,7 +27,7 @@ class RepOkMethodParser(RepOkParserInterface):
             elif not inside_reasoning and line.strip() == END_CODE_SNIPPET:
                 inside_method = False
             elif inside_method:
-                method += TAB + line + "\n"
+                method += line + "\n"
         
         return method
 

@@ -1,14 +1,16 @@
 from classes.model import Model
 from classes.model_executor.model_executor_interface import ModelExecutorInterface
-from string_constants import PROPERTY_TAG
+from classes.string_constants import PROPERTY_TAG
 
 class DualModelExecutor(ModelExecutorInterface):
 
     def __init__(self, dual_prompt):
+        super().__init__()
         self.dual_prompt = dual_prompt
 
     def execute(self, model):
         prop_completion = model.create_chat_completion()
+        self.write_completion(prop_completion)
         props = self._parse_properties(prop_completion)
         prop_methods = ""
 
@@ -18,6 +20,7 @@ class DualModelExecutor(ModelExecutorInterface):
             self.dual_prompt.add_property_to_class(prop)
             model2 = Model(model.model_path, model.temperature, model.max_tokens, model.n_ctx, self.dual_prompt)
             prop_method_completion = model2.create_chat_completion()
+            self.write_completion(prop_method_completion)
             prop_methods += prop_method_completion + "\n"
 
         return prop_methods

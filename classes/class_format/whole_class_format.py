@@ -8,5 +8,5 @@ class WholeClassFormat(ClassFormatInterface):
         self.formatted_class = ""
 
     def get_formatted_class(self) -> str:
-        self.formatted_class += BEGIN_CODE_SNIPPET + self.raw_class + END_CODE_SNIPPET 
+        self.formatted_class += BEGIN_CODE_SNIPPET + "\n" + self.raw_class + "\n" + END_CODE_SNIPPET 
         return self.formatted_class

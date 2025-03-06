@@ -45,13 +45,13 @@ CLASS_ATTRS="### Class Attributes\n"
 CLASS_METHODS="### Class Methods\n"
 
 REPOK_TAG="### repOK\n"
-BEGIN_CODE_SNIPPET="```java\n"
-END_CODE_SNIPPET="\n```"
+BEGIN_CODE_SNIPPET="```java"
+END_CODE_SNIPPET="```"
 TAB="    "
 CLASS_SUFFIX="""}\n"""
 PROPERTY_TAG="\n### Property\n"
-OPEN_REASONING_TAG="<think>\n"
-CLOSE_REASONING_TAG="</think>\n"
+OPEN_REASONING_TAG="<think>"
+CLOSE_REASONING_TAG="</think>"
 PROPERTY_METHOD_NAME="property"
 
 def REPOK_CLASS_FILENAME(number):
