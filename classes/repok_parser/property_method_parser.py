@@ -1,7 +1,7 @@
 from classes.repok_parser.repok_parser_interface import RepOkParserInterface
-from classes.string_constants import END_CODE_SNIPPET, PROPERTY_TAG, BEGIN_CODE_SNIPPET, PROPERTY_METHOD_NAME, CLASS_SUFFIX, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, TAB
+from classes.string_constants import END_CODE_SNIPPET, OPEN_REASONING_TAG, CLOSE_REASONING_TAG, BEGIN_CODE_SNIPPET, PROPERTY_METHOD_NAME, CLASS_SUFFIX, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, TAB
 
-class DualPropRepOkParser(RepOkParserInterface):
+class PropertyMethodParser(RepOkParserInterface):
 
     def __init__(self):
         super().__init__()
@@ -14,21 +14,25 @@ class DualPropRepOkParser(RepOkParserInterface):
     def _parse_code_properties(self):
         properties = []
         lines = self.repOk_completion.splitlines()
+        inside_reasoning = False
         inside_property = False
         current_property = ""
 
         for line in lines:
-            if line.strip() == PROPERTY_TAG:
+            if line.strip() == OPEN_REASONING_TAG:
+                inside_reasoning = True
+            elif line.strip == CLOSE_REASONING_TAG:
+                inside_reasoning = False
+            elif not inside_reasoning and line.strip() == BEGIN_CODE_SNIPPET:
                 inside_property = True
-            elif inside_property and line.strip() == BEGIN_CODE_SNIPPET:
                 continue
-            elif inside_property and line.strip() == END_CODE_SNIPPET:
+            elif not inside_reasoning and line.strip() == END_CODE_SNIPPET:
                 properties.append(current_property)
-                inside_property = False
                 current_property = ""
+                inside_property = False
             elif inside_property:
                 current_property += TAB + line + "\n"
-
+        
         return properties
 
     def _enumerate_properties(self, code_properties : list):
