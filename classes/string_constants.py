@@ -37,7 +37,7 @@ BEGIN_CODE_SNIPPET="```java\n"
 END_CODE_SNIPPET="\n```"
 TAB="    "
 CLASS_SUFFIX="""}\n"""
-PROPERTY_TAG="""[Property]"""   #TODO: Delete
+PROPERTY_TAG="\n### Property\n"
 PROPERTY_METHOD_NAME="property"
 
 def REPOK_CLASS_FILENAME(number):

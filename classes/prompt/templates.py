@@ -59,6 +59,8 @@ SYSTEM_PROMPT_SIMPLE="""You are an expert software engineer with proficiency in 
 USER_PROMPT_OPENAI="""### Generate a representation invariant for this class. Make sure to only write properties that the class satisfies and with no explanation.
 """
 
+CLASS_NAME_EXAMPLE_1="MinHeap"
+
 CLASS_EXAMPLE_1="""```java
 public class MinHeap {
     private int[] heap;
@@ -229,6 +231,7 @@ public boolean property() {
 ```
 """
 
+CLASS_NAME_EXAMPLE_2="BinTree"
 
 CLASS_EXAMPLE_2="""```java
 public class BinTree {
@@ -451,6 +454,8 @@ public int getSize() {
     return size;
 }
 """
+
+CLASS_NAME_EXAMPLE_3="LinkedList"
 
 CLASS_EXAMPLE_3="""
 ```java
