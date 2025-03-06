@@ -27,5 +27,5 @@ class DualModelExecutor(ModelExecutorInterface):
         for line in props_output.splitlines():
             if line.startswith("-"):
                 lines.append(PROPERTY_TAG + line)
-        return lines 
+        return lines
     

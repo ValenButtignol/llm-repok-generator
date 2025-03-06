@@ -9,8 +9,8 @@ class FileOutputManager(OutputManagerInterface):
     def set_output_file_name(self, output_file_name):
         self.output_file_name = OUTPUT_FOLDER + output_file_name
 
-    def write(self, text):
-        with open(self.output_file_name, 'w') as output_file:
+    def write(self, text, mode="w"):
+        with open(self.output_file_name, mode) as output_file:
             output_file.write(text)
         output_file.close()
 
