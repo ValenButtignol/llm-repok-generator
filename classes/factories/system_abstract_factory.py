@@ -1,8 +1,7 @@
 from classes.factories.dual_prompt_type_factory import DualPromptTypeFactory
-from classes.factories.global_prompt_type_factory import GlobalPromptTypeFactory
+from classes.factories.simple_prompt_type_factory import SimplePromptTypeFactory
 from classes.factories.prompt_type_factory_inteface import PromptTypeFactoryInterface
-from classes.string_constants import DUAL_PARTSOFCLASS_PROMPT_TYPE, DUAL_WHOLECLASS_PROMPT_TYPE, FEWSHOT_OPENAI_PARTSOFCLASS_PROMPT_TYPE, FEWSHOT_OPENAI_WHOLECLASS_PROMPT_TYPE, FEWSHOT_PARTSOFCLASS_PROMPT_TYPE, FEWSHOT_WHOLECLASS_PROMPT_TYPE, GLOBAL_PROMPT_TYPE
-
+from classes.string_constants import USER_BASIC_REPOK_PT, SYSTEM_BASIC_REPOK_PT, USER_HINTS_REPOK_PT, SYSTEM_HINTS_REPOK_PT, USER_FS_REPOK_PT, USER_ASSISTANT_FS_REPOK_PT, USER_HINTS_USER_FS_REPOK_PT, USER_HINTS_USER_ASSISTANT_FS_REPOK_PT, SYSTEM_HINTS_USER_FS_REPOK_PT, SYSTEM_HINTS_USER_ASSISTANT_FS_REPOK_PT, USER_BASIC_PROPS_PT, SYSTEM_BASIC_PROPS_PT, USER_HINTS_PROPS_PT, SYSTEM_HINTS_PROPS_PT, USER_FS_PROPS_PT, USER_ASSISTANT_FS_PROPS_PT, USER_HINTS_USER_FS_PROPS_PT, USER_HINTS_USER_ASSISTANT_FS_PROPS_PT, SYSTEM_HINTS_USER_FS_PROPS_PT, SYSTEM_HINTS_USER_ASSISTANT_FS_PROPS_PT
 
 class SystemAbstractFactory:
     def __init__(self, prompt_type, raw_class, class_name):
@@ -11,20 +10,45 @@ class SystemAbstractFactory:
         self.class_name = class_name
 
     def create(self) -> PromptTypeFactoryInterface:
-        if self.prompt_type == GLOBAL_PROMPT_TYPE:
-            return GlobalPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-        elif self.prompt_type == FEWSHOT_WHOLECLASS_PROMPT_TYPE:
-            return GlobalPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-        elif self.prompt_type == FEWSHOT_PARTSOFCLASS_PROMPT_TYPE:
-            return GlobalPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-        elif self.prompt_type == FEWSHOT_OPENAI_WHOLECLASS_PROMPT_TYPE:
-            return GlobalPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-        elif self.prompt_type == FEWSHOT_OPENAI_PARTSOFCLASS_PROMPT_TYPE:
-            return GlobalPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-        elif self.prompt_type == DUAL_WHOLECLASS_PROMPT_TYPE:
-            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-        elif self.prompt_type == DUAL_PARTSOFCLASS_PROMPT_TYPE:
-            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name)
-    
+        if self.prompt_type == USER_BASIC_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_BASIC_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_HINTS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_HINTS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_FS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_ASSISTANT_FS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_HINTS_USER_FS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_HINTS_USER_ASSISTANT_FS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_HINTS_USER_FS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_HINTS_USER_ASSISTANT_FS_REPOK_PT:
+            return SimplePromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_BASIC_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_BASIC_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_HINTS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_HINTS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_FS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_ASSISTANT_FS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_HINTS_USER_FS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == USER_HINTS_USER_ASSISTANT_FS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_HINTS_USER_FS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == SYSTEM_HINTS_USER_ASSISTANT_FS_PROPS_PT:
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
         else:
             raise Exception("Invalid prompt type: " + self.prompt_type + "\n")
