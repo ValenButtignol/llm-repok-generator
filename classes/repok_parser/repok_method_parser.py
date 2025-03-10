@@ -19,7 +19,7 @@ class RepOkMethodParser(RepOkParserInterface):
         for line in lines:
             if line.strip() == OPEN_REASONING_TAG:
                 inside_reasoning = True
-            elif line.strip == CLOSE_REASONING_TAG:
+            elif line.strip() == CLOSE_REASONING_TAG:
                 inside_reasoning = False
             elif not inside_reasoning and line.strip() == BEGIN_CODE_SNIPPET:
                 inside_method = True

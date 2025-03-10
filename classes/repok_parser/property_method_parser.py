@@ -21,7 +21,7 @@ class PropertyMethodParser(RepOkParserInterface):
         for line in lines:
             if line.strip() == OPEN_REASONING_TAG:
                 inside_reasoning = True
-            elif line.strip == CLOSE_REASONING_TAG:
+            elif line.strip() == CLOSE_REASONING_TAG:
                 inside_reasoning = False
             elif not inside_reasoning and line.strip() == BEGIN_CODE_SNIPPET:
                 inside_property = True
@@ -34,7 +34,6 @@ class PropertyMethodParser(RepOkParserInterface):
                 current_property += TAB + line + "\n"
         
         return properties
-
     def _enumerate_properties(self, code_properties : list):
         for i, prop in enumerate(code_properties):
             enumerated_prop = prop.replace(PROPERTY_METHOD_NAME, PROPERTY_METHOD_NAME + str(i+1))

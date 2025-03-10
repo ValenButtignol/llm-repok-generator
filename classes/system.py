@@ -10,8 +10,8 @@ class System:
         self.parser.parse()
 
         self.temperature = 0.1
-        self.max_tokens = 2000
-        self.n_ctx = 4096
+        self.max_tokens = 4000
+        self.n_ctx = 6144
         self.model_name = self.parser.model_name
         self.prompt_type = self.parser.prompt_type
         self.raw_class = self.parser.raw_class
