@@ -1,7 +1,6 @@
 from classes.factories.prompt_type_factory_inteface import PromptTypeFactoryInterface
 from classes.model_executor.simple_model_executor import SimpleModelExecutor
 from classes.output_manager.file_output_manager import FileOutputManager
-from classes.repok_parser.repok_method_parser import RepOkMethodParser
 from classes.prompt.repok_prompts.repok_user_basic_prompt import RepOKUserBasicPrompt
 from classes.prompt.repok_prompts.repok_system_basic_prompt import RepOKSystemBasicPrompt
 from classes.prompt.repok_prompts.repok_user_hints_prompt import RepOKUserHintsPrompt
@@ -45,8 +44,5 @@ class SimplePromptTypeFactory(PromptTypeFactoryInterface):
         elif self.prompt_type == SYSTEM_HINTS_USER_ASSISTANT_FS_REPOK_PT:
             return RepOKSystemHintsUserAssistantFewShotPrompt(self.raw_class, self.class_name)
 
-    def create_repok_parser(self):
-        return RepOkMethodParser()
-        
     def create_model_executor(self):
         return SimpleModelExecutor()

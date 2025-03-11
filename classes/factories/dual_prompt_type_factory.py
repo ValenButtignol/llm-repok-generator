@@ -1,7 +1,6 @@
 from classes.factories.prompt_type_factory_inteface import PromptTypeFactoryInterface
 from classes.model_executor.dual_model_executor import DualModelExecutor
 from classes.output_manager.file_output_manager import FileOutputManager
-from classes.repok_parser.property_method_parser import PropertyMethodParser
 from classes.prompt.props_prompts.props_user_basic_prompt import CodePropUserBasicPrompt, TextPropsUserBasicPrompt
 from classes.prompt.props_prompts.props_system_basic_prompt import CodePropSystemBasicPrompt, TextPropsSystemBasicPrompt
 from classes.prompt.props_prompts.props_user_hints_prompt import CodePropUserHintsPrompt, TextPropsUserHintsPrompt
@@ -57,8 +56,5 @@ class DualPromptTypeFactory(PromptTypeFactoryInterface):
             self.dual_prompt = CodePropSystemHintsUserAssistantFewShotPrompt(self.raw_class, self.class_name)
             return TextPropsSystemHintsUserAssistantFewShotPrompt(self.raw_class, self.class_name)
 
-    def create_repok_parser(self):
-        return PropertyMethodParser()
-    
     def create_model_executor(self):
         return DualModelExecutor(self.dual_prompt)
