@@ -12,7 +12,7 @@ class DualModelExecutor(ModelExecutorInterface):
         prop_completion = model.create_chat_completion()
         self.write_completion(prop_completion)
         props = self._parse_properties(prop_completion)
-        prop_methods = ""
+        prop_methods = []
 
         for prop in props:
             self.dual_prompt.clean_prompt_data()
@@ -21,7 +21,7 @@ class DualModelExecutor(ModelExecutorInterface):
             model2 = Model(model.model_path, model.temperature, model.max_tokens, model.n_ctx, self.dual_prompt)
             prop_method_completion = model2.create_chat_completion()
             self.write_completion(prop_method_completion)
-            prop_methods += prop_method_completion + "\n"
+            prop_methods.append(prop_method_completion)
 
         return prop_methods
 

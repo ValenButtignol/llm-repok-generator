@@ -9,4 +9,4 @@ class SimpleModelExecutor(ModelExecutorInterface):
     def execute(self, model):
         completion = model.create_chat_completion()
         self.write_completion(completion)
-        return completion
+        return [completion]
