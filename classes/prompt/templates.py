@@ -1,3 +1,47 @@
+SYSTEM_PROMPT="### You are an expert software engineer with proficiency in the Java programming language."
+
+REPOK_BASIC_PROMPT="### Your task is to write representation invariants for Java classes. Answer by giving the representation invariant as a Java method called `repOK`.\n"
+
+REPOK_END_OF_PROMPT="### repOK:\n"
+
+def REPOK_USER_TASK(class_name):
+    return f"### Write a representation invariant for the {class_name} class.\n"
+
+REPOK_HINTS_PROMPT="""### Take into account the following rules for writing the representation invariant:
+- The representation invariant is a boolean method of the class.
+- The representation invariant must return `true` if the object is valid, and `false` otherwise.
+- Only verify properties in the representation invariant that you are completely sure are valid.
+- Do not provide any explanation.
+"""
+
+TEXT_PROP_BASIC_PROMPT="### Your task is to provide a list of properties of representation invariants for Java classes as plain text. Answer by giving the list of properties with the format \"- Property Name: Short Description.\".\n"
+
+TEXT_PROP_END_OF_PROMPT="### Properties:\n"
+
+def TEXT_PROP_USER_TASK(class_name):
+    return f"### Write a list of properties for the {class_name} class.\n"
+
+TEXT_PROP_HINTS_PROMPT="""### Take into account the following rules for writing the properties:
+- A representation invariant is a boolean method of the class.
+- The representation invariant must return `true` if the object is valid, and `false` otherwise.
+- Answer by giving only the list of properties.
+- Only list properties that you are completely sure are valid.
+- Do not provide any explanation.
+"""
+
+CODE_PROP_BASIC_PROMPT="### Your task is to provide the code for a property of the representation invariant for Java classes. Answer by giving the property as a Java method called `property`.\n"
+
+CODE_PROP_END_OF_PROMPT="### Code Property:\n"
+
+def CODE_PROP_USER_TASK(class_name):
+    return f"### Write the property of the representation invariant for the {class_name} class."
+
+CODE_PROP_HINTS_PROMPT="""### Take into account the following rules for writing the property:
+- The property is a boolean method of the class.
+- The property must return `true` if the object satisfies the property, and `false` otherwise.
+- Do not provide any explanation.
+"""
+
 SYSTEM_PROMPT_REPOK="""You are an expert software engineer with proficiency in the Java programming language. Your task is to analyze a Java class and generate the representation invariant of the class. A representation invariant is a boolean method of the class, called repOk, that returns true when executed over valid instances of the class, and returns false otherwise."""
 
 SYSTEM_PROMPT_PROP_LIST="""You are an expert software engineer with proficiency in the Java programming language. Your task is to analyze a Java class and generate a list of properties in plain text that are a part of the representation invariant of the class. A representation invariant is a boolean method of the class that returns true when executed over valid instances of the class, and returns false otherwise."""
@@ -10,141 +54,175 @@ USER_PROMPT_PROP_LIST="""Generate a list of properties in plain text that the re
 """
 USER_PROMPT_CHAIN_OF_THOUGT="""Generate a representation invariant that verifies the properties above."""
 
-CLASS_EXAMPLE_1="""[Class]
-```java
-import java.util.HashSet;
-import java.util.Set;
-public class Graph {
-    public static class Node {
-        int id;
-        public Node(int id) {
-            this.id = id;
+SYSTEM_PROMPT_SIMPLE="""You are an expert software engineer with proficiency in the Java programming language."""
+
+USER_PROMPT_OPENAI="""### Generate a representation invariant for this class. Make sure to only write properties that the class satisfies and with no explanation.
+"""
+
+CLASS_NAME_EXAMPLE_1="MinHeap"
+
+CLASS_EXAMPLE_1="""```java
+public class MinHeap {
+    private int[] heap;
+    private int size;
+    private int capacity;
+    public MinHeap(int capacity) {
+        this.capacity = capacity;
+        this.size = 0;
+        this.heap = new int[capacity];
+    }
+    private int parent(int index) {
+        return (index - 1) / 2;
+    }
+    private int leftChild(int index) {
+        return 2 * index + 1;
+    }
+    private int rightChild(int index) {
+        return 2 * index + 2;
+    }
+    public void insert(int value) {
+        if (size == capacity) {
+            throw new IllegalStateException("Heap is full");
+        }
+        heap[size] = value;
+        int current = size;
+        size++;
+        while (current != 0 && heap[current] < heap[parent(current)]) {
+            swap(current, parent(current));
+            current = parent(current);
         }
     }
-    public static class Edge {
-        Node source;
-        Node destination;
-        public Edge(Node source, Node destination) {
-            this.source = source;
-            this.destination = destination;
+    public int extractMin() {
+        if (size == 0) {
+            throw new IllegalStateException("Heap is empty");
+        }
+        int min = heap[0];
+        heap[0] = heap[size - 1];
+        size--;
+        heapifyDown(0);
+        return min;
+    }
+    private void heapifyDown(int index) {
+        int smallest = index;
+        int left = leftChild(index);
+        int right = rightChild(index);
+        if (left < size && heap[left] < heap[smallest]) {
+            smallest = left;
+        }
+        if (right < size && heap[right] < heap[smallest]) {
+            smallest = right;
+        }
+        if (smallest != index) {
+            swap(index, smallest);
+            heapifyDown(smallest);
         }
     }
-    private Set<Node> nodes;
-    private Set<Edge> edges;
-    public Graph() {
-        nodes = new HashSet<>();
-        edges = new HashSet<>();
-    }
-    public void addNode(int id) {
-        nodes.add(new Node(id));
-    }
-    public void addEdge(int sourceId, int destinationId) {
-        Node source = findNodeById(sourceId);
-        Node destination = findNodeById(destinationId);
-        if (source != null && destination != null) {
-            edges.add(new Edge(source, destination));
-        }
-    }
-    private Node findNodeById(int id) {
-        for (Node node : nodes) {
-            if (node.id == id) {
-                return node;
-            }
-        }
-        return null;
+    private void swap(int i, int j) {
+        int temp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = temp;
     }
 }
 ```
 """
 
-PARTS_OF_CLASS_1="""[Class signature]
-public class Graph
-[Class attributes]
-private Set<Node> nodes
-private Set<Edge> edges
-[Class methods]
-public void addNode(int id) {
-    nodes.add(new Node(id));
+PARTS_OF_CLASS_1="""### Class signature
+public class MinHeap
+### Class attributes
+private int[] heap;
+private int size;
+private int capacity;
+### Class methods
+private int parent(int index) {
+    return (index - 1) / 2;
 }
-public void addEdge(int sourceId, int destinationId) {
-    Node source = findNodeById(sourceId);
-    Node destination = findNodeById(destinationId);
-    if (source != null && destination != null) {
-        edges.add(new Edge(source, destination));
+private int leftChild(int index) {
+    return 2 * index + 1;
+}
+private int rightChild(int index) {
+    return 2 * index + 2;
+}
+public void insert(int value) {
+    if (size == capacity) {
+        throw new IllegalStateException("Heap is full");
+    }
+    heap[size] = value;
+    int current = size;
+    size++;
+    while (current != 0 && heap[current] < heap[parent(current)]) {
+        swap(current, parent(current));
+        current = parent(current);
     }
 }
-private Node findNodeById(int id) {
-    for (Node node : nodes) {
-        if (node.id == id) {
-            return node;
-        }
+public int extractMin() {
+    if (size == 0) {
+        throw new IllegalStateException("Heap is empty");
     }
-    return null;
+    int min = heap[0];
+    heap[0] = heap[size - 1];
+    size--;
+    heapifyDown(0);
+    return min;
+}
+private void heapifyDown(int index) {
+    int smallest = index;
+    int left = leftChild(index);
+    int right = rightChild(index);
+    if (left < size && heap[left] < heap[smallest]) {
+        smallest = left;
+    }
+    if (right < size && heap[right] < heap[smallest]) {
+        smallest = right;
+    }
+    if (smallest != index) {
+        swap(index, smallest);
+        heapifyDown(smallest);
+    }
+}
+private void swap(int i, int j) {
+    int temp = heap[i];
+    heap[i] = heap[j];
+    heap[j] = temp;
 }
 """
 
-REPOK_EXAMPLE_1="""[repOk]
-```java
-public boolean repOk() {
-    if (nodes == null || edges == null) {
-        return false;
-    }
+REPOK_EXAMPLE_1="""```java
+public boolean repOK() {
+    for (int i = 0; i < size; i++) {
+        int left = leftChild(i);
+        int right = rightChild(i);
 
-    for (Edge edge : edges) {
-        if (edge == null || edge.source == null || edge.destination == null) {
+        if (left < size && heap[left] < heap[i]) {
             return false;
         }
-        if (!nodes.contains(edge.source) || !nodes.contains(edge.destination)) {
+        if (right < size && heap[right] < heap[i]) {
             return false;
         }
     }
-
-    for (Edge edge : edges) {
-        if (edge.source.equals(edge.destination)) {
-            return false;
-        }
-    }
-
-    Set<Integer> nodeIds = new HashSet<>();
-    for (Node node : nodes) {
-        if (node == null) {
-            return false;
-        }
-        if (!nodeIds.add(node.id)) {
-            return false;
-        }
-    }
-
-    Set<String> edgeSet = new HashSet<>();
-    for (Edge edge : edges) {
-        String edgeKey = edge.source.id + "->" + edge.destination.id;
-        if (!edgeSet.add(edgeKey)) {
-            return false;
-        }
-    }
-
     return true;
-} 
+}
 ```
 """
 
-TEXT_PROP_LIST_EXAMPLE_1="""[Properties]
-- Null checks for sets: Node set and Edge set must be initialized and not null.
-- Edge and edge references validity: Each Edge and its source and destination nodes must be present in the node set and not null.
-- No self-loops: Source and destination nodes in an edge must be different.
-- Node validity and uniqueness: No node object in the node set can be null. There can be no duplicate nodes (HashSet already enforces this).
-- No duplicate edges: There can be no duplicate edges (HashSet already enforces this).
+TEXT_PROP_LIST_EXAMPLE_1="""- Array Bounds. The size of the heap should not exceed the capacity.
+- Heap Property. For every node, the parent should be smaller than or equal to its children.
+- Complete Tree Property. The heap should be a complete binary tree, meaning all levels are fully filled except possibly the last level, which is filled from left to right.
 """
 
-TEXT_SINGLE_PROP_EXAMPLE_1="""[Property]
-- No self-loops. Source and destination nodes in an edge must be different.
+TEXT_SINGLE_PROP_EXAMPLE_1="""### Property:
+- Heap Property. For every node, the parent should be smaller than or equal to its children.
 """
 
-CODE_SINGLE_PROP_EXAMPLE_1="""[Property]
-```java
+CODE_SINGLE_PROP_EXAMPLE_1="""```java
 public boolean property() {
-    for (Edge edge : edges) {
-        if (edge.source.equals(edge.destination)) {
+    for (int i = 0; i < size; i++) {
+        int left = leftChild(i);
+        int right = rightChild(i);
+
+        if (left < size && heap[left] < heap[i]) {
+            return false;
+        }
+        if (right < size && heap[right] < heap[i]) {
             return false;
         }
     }
@@ -153,9 +231,9 @@ public boolean property() {
 ```
 """
 
+CLASS_NAME_EXAMPLE_2="BinTree"
 
-CLASS_EXAMPLE_2="""[Class]
-```java
+CLASS_EXAMPLE_2="""```java
 public class BinTree {
     private class Node {
         private Node left;  // left child
@@ -213,8 +291,7 @@ public class BinTree {
 ```
 """
 
-REPOK_EXAMPLE_2="""[repOk]
-```java
+REPOK_EXAMPLE_2="""```java
 public boolean repOK() {
     if (root == null)
         return size == 0;
@@ -294,19 +371,17 @@ private boolean noDuplicatesHelper(Node node, Set<Integer> seen) {
 ```
 
 """
-TEXT_PROP_LIST_EXAMPLE_2="""[Properties]
-- Consistent size: The size attribute must be equal to the number of nodes in the tree.
+TEXT_PROP_LIST_EXAMPLE_2="""- Consistent size: The size attribute must be equal to the number of nodes in the tree.
 - Acyclic structure: The tree structure must be acyclic, i.e., no node should have a path back to itself.
 - Ordered structure: The tree must maintain the binary search tree property, where the left child of a node has a value less than the parent node, and the right child has a value greater than the parent node.
 - No duplicate values: No two nodes in the tree should have the same value.
 """
 
-TEXT_SINGLE_PROP_EXAMPLE_2="""[Property]
+TEXT_SINGLE_PROP_EXAMPLE_2="""### Property:
 - Acyclic structure: The tree structure must be acyclic, i.e., no node should have a path back to itself.
 """
 
-CODE_SINGLE_PROP_EXAMPLE_2="""[Property]
-```java
+CODE_SINGLE_PROP_EXAMPLE_2="""```java
 public boolean property() {
     Set<Node> visited = new HashSet<Node>();
     visited.add(root);
@@ -330,12 +405,12 @@ public boolean property() {
 ```
 """
 
-PARTS_OF_CLASS_2="""[Class signature]
+PARTS_OF_CLASS_2="""### Class signature
 public class BinTree
-[Class attributes]
+### Class attributes
 private Node root    
 private int size = 0
-[Class methods]
+### Class methods
 public void add(int x) {
     if (root == null) {
         root = new Node(x);
@@ -380,7 +455,9 @@ public int getSize() {
 }
 """
 
-CLASS_EXAMPLE_3="""[Class]
+CLASS_NAME_EXAMPLE_3="LinkedList"
+
+CLASS_EXAMPLE_3="""
 ```java
 public class LinkedList {
     private static class Node {
@@ -423,12 +500,12 @@ public class LinkedList {
 ```
 """
 
-PARTS_OF_CLASS_3="""[Class signature]
+PARTS_OF_CLASS_3="""### Class signature
 public class LinkedList
-[Class attributes]
+### Class attributes
 private Node head
 private int size
-[Class methods]
+### Class methods
 public void add(int data) {
     Node newNode = new Node(data);
     if (head == null) {
@@ -453,8 +530,8 @@ public int remove() {
 }
 """
 
-REPOK_EXAMPLE_3="""[repOk]
-public boolean repOk() {
+REPOK_EXAMPLE_3="""```java
+public boolean repOK() {
     if (size < 0) {
         return false;
     }
@@ -482,21 +559,20 @@ public boolean repOk() {
 
     return nodeCount == size;
 }
+```
 """
 
-TEXT_PROP_LIST_EXAMPLE_3="""[Properties]
-- No negative size: The size attribute must not be negative.
+TEXT_PROP_LIST_EXAMPLE_3="""- No negative size: The size attribute must not be negative.
 - Size consistency with head: The size attribute must be consistent with head attribute.
 - Consistent size: The size attribute must be equal to the number of nodes in the tree.
 - Acyclic structure: The linked list structure must be acyclic, i.e., no node should have a path back to itself.
 """
 
-TEXT_SINGLE_PROP_EXAMPLE_3="""[Property]
+TEXT_SINGLE_PROP_EXAMPLE_3="""### Property:
 - Consistent size: The size attribute must be equal to the number of nodes in the tree.
 """
 
-CODE_SINGLE_PROP_EXAMPLE_3="""[Property]
-```java
+CODE_SINGLE_PROP_EXAMPLE_3="""```java
 public boolean property() {
     int nodeCount = 0;
     Node current = head;
@@ -510,5 +586,3 @@ public boolean property() {
 }
 ```
 """
-
-

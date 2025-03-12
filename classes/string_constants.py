@@ -1,5 +1,5 @@
 LLAMA="Llama3.1"
-LLAMA_NAME="meta-llama-3.1-8b-instruct.Q6_K_L.gguf"
+LLAMA_NAME="Meta-Llama-3.1-8B-Instruct-Q6_K_L.gguf"
 
 DISTILL_LLAMA="Distill-Llama"
 DISTILL_LLAMA_NAME="DeepSeek-R1-Distill-Llama-8B-Q6_K_L.gguf"
@@ -17,31 +17,45 @@ MODELS_FOLDER="models/"
 OUTPUT_FOLDER="output/"
 TOOLS_FOLDER="tools/"
 
-GLOBAL_PROMPT_TYPE="global"
-FEWSHOT_WHOLECLASS_PROMPT_TYPE="fs-w"
-FEWSHOT_PARTSOFCLASS_PROMPT_TYPE="fs-p"
-DUAL_WHOLECLASS_PROMPT_TYPE="dual-w"
-DUAL_PARTSOFCLASS_PROMPT_TYPE="dual-p"
-
+USER_BASIC_REPOK_PT="u-b-r"
+SYSTEM_BASIC_REPOK_PT="s-b-r"
+USER_HINTS_REPOK_PT="u-h-r"
+SYSTEM_HINTS_REPOK_PT="s-h-r"
+USER_FS_REPOK_PT="ufs-r"
+USER_ASSISTANT_FS_REPOK_PT="uafs-r"
+USER_HINTS_USER_FS_REPOK_PT="u-h-ufs-r"
+USER_HINTS_USER_ASSISTANT_FS_REPOK_PT="u-h-uafs-r"
+SYSTEM_HINTS_USER_FS_REPOK_PT="s-h-ufs-r"
+SYSTEM_HINTS_USER_ASSISTANT_FS_REPOK_PT="s-h-uafs-r"
+USER_BASIC_PROPS_PT="u-b-p"
+SYSTEM_BASIC_PROPS_PT="s-b-p"
+USER_HINTS_PROPS_PT="u-h-p"
+SYSTEM_HINTS_PROPS_PT="s-h-p"
+USER_FS_PROPS_PT="ufs-p"
+USER_ASSISTANT_FS_PROPS_PT="uafs-p"
+USER_HINTS_USER_FS_PROPS_PT="u-h-ufs-p"
+USER_HINTS_USER_ASSISTANT_FS_PROPS_PT="u-h-uafs-p"
+SYSTEM_HINTS_USER_FS_PROPS_PT="s-h-u-p"
+SYSTEM_HINTS_USER_ASSISTANT_FS_PROPS_PT="s-h-uafs-p"
 
 JAVAPARSER_JAR="javaparser-core-3.26.3.jar"
 
-CLASS_SIGNATURE="""[Class Signature]
-"""
-CLASS_ATTRS="""[Class Attributes]
-"""
-CLASS_METHODS="""[Class Methods]
-"""
+CLASS_SIGNATURE="### Class Signature\n"
+CLASS_ATTRS="### Class Attributes\n"
+CLASS_METHODS="### Class Methods\n"
 
-CLASS_TAG="""[Class]
-"""
-REPOK_TAG="""[repOk]
-"""
-BEGIN_CODE_SNIPPET="""```java"""
-END_CODE_SNIPPET="""```"""
+REPOK_TAG="### repOK\n"
+BEGIN_CODE_SNIPPET="```java"
+END_CODE_SNIPPET="```"
+REPOK_SIG="public boolean repOK"
+PROP_SIG="public boolean property"
+PUBLIC_DECL="public"
+PRIVATE_DECL="private"
 TAB="    "
 CLASS_SUFFIX="""}\n"""
-PROPERTY_TAG="""[Property]"""
+PROPERTY_TAG="\n### Property\n"
+OPEN_REASONING_TAG="<think>"
+CLOSE_REASONING_TAG="</think>"
 PROPERTY_METHOD_NAME="property"
 
 def REPOK_CLASS_FILENAME(number):
