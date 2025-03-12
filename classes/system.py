@@ -12,7 +12,7 @@ class System:
 
         self.temperature = 0.1
         self.max_tokens = 4000
-        self.n_ctx = 6144
+        self.n_ctx = 8192
         self.model_name = self.parser.model_name
         self.prompt_type = self.parser.prompt_type
         self.raw_class = self.parser.raw_class
@@ -43,5 +43,3 @@ class System:
         for repOk_class, file_name in repOk_classes:
             self.output_manager.set_output_file_name(file_name)
             self.output_manager.write(repOk_class)
-
-
