@@ -1,4 +1,4 @@
-from classes.string_constants import CLASS_SUFFIX, CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PRIVATE_DECL, PROP_SIG, PUBLIC_DECL, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, REPOK_SIG, TAB
+from classes.string_constants import CLASS_SUFFIX, CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PRIVATE_DECL, PROTECTED_DECL, PROTECTED_PROP_SIG, PROTECTED_REPOK_SIG, PUBLIC_DECL, PUBLIC_PROP_SIG, PUBLIC_REPOK_SIG, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, TAB
 
 class RepOKParser:
 
@@ -24,12 +24,12 @@ class RepOKParser:
                 elif stripped == CLOSE_REASONING_TAG:
                     inside_reasoning = False
 
-                elif not inside_reasoning and not inside_snippet and (stripped.startswith(REPOK_SIG) or stripped.startswith(PROP_SIG)):
+                elif not inside_reasoning and not inside_snippet and self._startswith_repoksignature(stripped):
                     inside_snippet = True
                     bracket_count = 1
                     snippet += TAB + line + "\n"
 
-                elif not inside_reasoning and inside_snippet and (stripped.startswith(PUBLIC_DECL) or stripped.startswith(PRIVATE_DECL)):
+                elif not inside_reasoning and inside_snippet and self._startswith_accessmodifier(stripped):
                     inside_snippet = True
                     bracket_count += 1
                     snippet += TAB + line + "\n"
@@ -54,3 +54,11 @@ class RepOKParser:
             class_number += 1
 
         return classes
+    
+    def _startswith_repoksignature(self, text):
+        return (text.startswith(PUBLIC_REPOK_SIG) or text.startswith(PUBLIC_PROP_SIG) or
+                text.startswith(PROTECTED_REPOK_SIG) or text.startswith(PROTECTED_PROP_SIG))
+    
+    def _startswith_accessmodifier(self, text):
+        return (text.startswith(PUBLIC_DECL) or text.startswith(PRIVATE_DECL) or
+                text.startswith(PROTECTED_DECL))
