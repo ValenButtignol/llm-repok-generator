@@ -1,5 +1,5 @@
 from classes.prompt.json_prompt import JsonPrompt
-from classes.prompt.templates import SYSTEM_PROMPT, REPOK_BASIC_PROMPT, REPOK_END_OF_PROMPT, REPOK_USER_TASK, REPOK_HINTS_PROMPT, CLASS_NAME_EXAMPLE_1, CLASS_NAME_EXAMPLE_2, CLASS_EXAMPLE_1, CLASS_EXAMPLE_2, REPOK_EXAMPLE_1, REPOK_EXAMPLE_2
+from classes.prompt.templates import SYSTEM_PROMPT, REPOK_BASIC_PROMPT, REPOK_END_OF_PROMPT, REPOK_USER_TASK, REPOK_HINTS_PROMPT, CLASS_NAME_EXAMPLE_3, CLASS_NAME_EXAMPLE_2, CLASS_EXAMPLE_3, CLASS_EXAMPLE_2, REPOK_EXAMPLE_3, REPOK_EXAMPLE_2
 from classes.class_format.whole_class_format import WholeClassFormat 
 
 class RepOKSystemHintsUserFewShotPrompt(JsonPrompt):
@@ -10,10 +10,10 @@ class RepOKSystemHintsUserFewShotPrompt(JsonPrompt):
 
         self.add_system_message(SYSTEM_PROMPT + REPOK_BASIC_PROMPT + REPOK_HINTS_PROMPT)
 
-        user_prompt = REPOK_USER_TASK(CLASS_NAME_EXAMPLE_1)
-        user_prompt += CLASS_EXAMPLE_1
+        user_prompt = REPOK_USER_TASK(CLASS_NAME_EXAMPLE_3)
+        user_prompt += CLASS_EXAMPLE_3
         user_prompt += REPOK_END_OF_PROMPT
-        user_prompt += REPOK_EXAMPLE_1
+        user_prompt += REPOK_EXAMPLE_3
 
         user_prompt += REPOK_USER_TASK(CLASS_NAME_EXAMPLE_2)
         user_prompt += CLASS_EXAMPLE_2
