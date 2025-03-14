@@ -1,4 +1,4 @@
-from classes.string_constants import CLASS_SUFFIX, CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PRIVATE_DECL, PROTECTED_DECL, PROTECTED_PROP_SIG, PROTECTED_REPOK_SIG, PUBLIC_DECL, PUBLIC_PROP_SIG, PUBLIC_REPOK_SIG, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, TAB
+from classes.string_constants import CLASS_SUFFIX, CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PRIVATE_DECL, PRIVATE_PROP_SIG, PRIVATE_REPOK_SIG, PROTECTED_DECL, PROTECTED_PROP_SIG, PROTECTED_REPOK_SIG, PUBLIC_DECL, PUBLIC_PROP_SIG, PUBLIC_REPOK_SIG, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, TAB
 
 class RepOKParser:
 
@@ -57,7 +57,8 @@ class RepOKParser:
     
     def _startswith_repoksignature(self, text):
         return (text.startswith(PUBLIC_REPOK_SIG) or text.startswith(PUBLIC_PROP_SIG) or
-                text.startswith(PROTECTED_REPOK_SIG) or text.startswith(PROTECTED_PROP_SIG))
+                text.startswith(PROTECTED_REPOK_SIG) or text.startswith(PROTECTED_PROP_SIG) or 
+                text.startswith(PRIVATE_REPOK_SIG) or text.startswith(PRIVATE_PROP_SIG))
     
     def _startswith_accessmodifier(self, text):
         return (text.startswith(PUBLIC_DECL) or text.startswith(PRIVATE_DECL) or
