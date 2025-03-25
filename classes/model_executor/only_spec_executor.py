@@ -14,7 +14,6 @@ class OnlySpecExecutor(ModelExecutorInterface):
         self.dual_prompt.clean_prompt_data()
         self.dual_prompt.add_spec(spec_completion)
         self.dual_prompt.template()
-        print(self.dual_prompt)
 
         model2 = Model(model.model_path, model.temperature, model.max_tokens, model.n_ctx, self.dual_prompt)
         repok_completion = model2.create_chat_completion()
