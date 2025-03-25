@@ -16,8 +16,8 @@ class DualModelExecutor(ModelExecutorInterface):
 
         for prop in props:
             self.dual_prompt.clean_prompt_data()
-            self.dual_prompt.template()
             self.dual_prompt.add_property_to_class(prop)
+            self.dual_prompt.template()
             model2 = Model(model.model_path, model.temperature, model.max_tokens, model.n_ctx, self.dual_prompt)
             prop_method_completion = model2.create_chat_completion()
             self.write_completion(prop_method_completion)
@@ -29,6 +29,6 @@ class DualModelExecutor(ModelExecutorInterface):
         lines = []
         for line in props_output.splitlines():
             if line.startswith("-"):
-                lines.append(PROPERTY_TAG + line)
+                lines.append(line)
         return lines
     
