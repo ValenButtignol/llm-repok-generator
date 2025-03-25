@@ -30,5 +30,7 @@ class DualModelExecutor(ModelExecutorInterface):
         for line in props_output.splitlines():
             if line.startswith("-"):
                 lines.append(line)
+            if len(lines) == 5:
+                break
         return lines
     

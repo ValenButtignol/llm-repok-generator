@@ -26,6 +26,7 @@ TEXT_PROP_HINTS_PROMPT="""### Take into account the following rules for writing 
 - The representation invariant must return `true` if the object is valid, and `false` otherwise.
 - Answer by giving only the list of properties.
 - Only list properties that you are completely sure are valid.
+- Do not provide more than five properties.
 - Do not provide any explanation.
 """
 
