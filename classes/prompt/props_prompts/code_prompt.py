@@ -1,5 +1,5 @@
 from classes.prompt.json_prompt import JsonPrompt
-from classes.string_constants import PROPERTY_TAG
+from classes.string_constants import CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PROPERTY_TAG
 
 
 class CodePrompt(JsonPrompt):
@@ -14,3 +14,21 @@ class CodePrompt(JsonPrompt):
 
     def template(self):
         raise NotImplementedError
+    
+    def add_spec(self):
+        raise NotImplementedError
+
+    def filter_spec(self, spec):
+        result = ""
+        reasoning = False
+        lines = spec.splitlines()
+        for line in lines:
+            stripped = line.strip()
+            if stripped == OPEN_REASONING_TAG:
+                reasoning = True
+            elif stripped == CLOSE_REASONING_TAG:
+                reasoning = False
+            elif not reasoning:
+                result += line + "\n"
+        
+        return result

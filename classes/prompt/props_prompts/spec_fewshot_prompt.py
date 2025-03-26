@@ -31,6 +31,8 @@ class RepOKSpecFewShotPrompt(CodePrompt):
 
     def add_spec(self, spec):
         self.classwithprop = self.raw_class + "\n" + "### Specification\n" + spec + "\n"
+        spec = self.filter_spec(spec)
+        self.classwithprop = self.raw_class + "\n" + "### Specification\n" + spec + "\n"
 
 
 class RepOKSpecOnlyFewShotPrompt(CodePrompt):
@@ -46,4 +48,5 @@ class RepOKSpecOnlyFewShotPrompt(CodePrompt):
         self.add_user_message(REPOK_USER_TASK(self.class_name) + self.classwithprop + REPOK_END_OF_PROMPT)
 
     def add_spec(self, spec):
+        spec = self.filter_spec(spec)
         self.classwithprop = "\n" + "### Specification\n" + spec + "\n"
