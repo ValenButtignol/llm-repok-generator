@@ -43,6 +43,19 @@ CODE_PROP_HINTS_PROMPT="""### Take into account the following rules for writing 
 - Do not provide any explanation.
 """
 
+SYSTEM_PROMPT_SPEC="""You are an expert software engineer with proficiency in Java programming language and software verification. Your task is to write informal specifications for Java classes. Answer by giving the informal specificaction in plain text."""
+
+SPEC_HINTS_PROMPT="""### Take into account the following tips for writing the informal specification:
+- Extract the behavior of the class, describe its attributes and methods, and explain key constraints on its state and purpose.
+- Do not provide any explanations or additional commentary. Output only the specification.
+"""
+
+SPEC_END_OF_PROMPT="### Specification:\n"
+
+def SPEC_USER_TASK(class_name):
+    return f"### Write the informal specification for the {class_name} class.\n"
+
+
 SYSTEM_PROMPT_REPOK="""You are an expert software engineer with proficiency in the Java programming language. Your task is to analyze a Java class and generate the representation invariant of the class. A representation invariant is a boolean method of the class, called repOk, that returns true when executed over valid instances of the class, and returns false otherwise."""
 
 SYSTEM_PROMPT_PROP_LIST="""You are an expert software engineer with proficiency in the Java programming language. Your task is to analyze a Java class and generate a list of properties in plain text that are a part of the representation invariant of the class. A representation invariant is a boolean method of the class that returns true when executed over valid instances of the class, and returns false otherwise."""
@@ -204,11 +217,23 @@ public boolean repOK() {
 }
 ```
 """
-
 TEXT_PROP_LIST_EXAMPLE_1="""- Array Bounds. The size of the heap should not exceed the capacity.
 - Heap Property. For every node, the parent should be smaller than or equal to its children.
 - Complete Tree Property. The heap should be a complete binary tree, meaning all levels are fully filled except possibly the last level, which is filled from left to right.
 """
+
+SPEC_EXAMPLE_1="""### Behavior
+The BinTree class represents a simple binary search tree (BST) that stores unique integer values. It consists of a private inner Node class, where each node holds an integer value and references to its left and right children. The tree maintains a reference to the root node and a size counter to track the number of elements. The add method inserts a new integer into the tree, ensuring that duplicates are not allowed, placing smaller values in the left subtree and larger values in the right subtree recursively. The contains method checks whether a given integer exists in the tree by traversing it recursively according to BST rules. Finally, the getSize method returns the total number of elements in the tree.The MinHeap class implements a binary min-heap data structure, which maintains a complete binary tree where the value of each parent node is less than or equal to its children. It provides insertion (insert(int value)) by placing the new element at the end and bubbling it up to maintain the heap property. The extractMin() method removes and returns the smallest element (the root), replacing it with the last element and restoring order by heapifying downward. The class manages its heap array, size, and capacity, using helper methods for parent/child indexing and swapping.
+
+### Attributes
+- heap (int[]): An array that stores the elements of the min-heap, maintaining the heap property where each parent node is smaller than its children.
+- size (int): Tracks the number of elements currently in the heap. It starts at zero and increases with insertions while decreasing with extractions.
+- capacity (int): Represents the maximum number of elements the heap can hold. It is set through the constructor and determines the size of the heap array.
+
+### Properties
+""" + TEXT_PROP_LIST_EXAMPLE_1
+
+
 
 TEXT_SINGLE_PROP_EXAMPLE_1="""### Property:
 - Heap Property. For every node, the parent should be smaller than or equal to its children.
@@ -344,8 +369,6 @@ private boolean isOrdered(Node n) {
 }
 
 private boolean isOrdered(Node n, int min, int max) {
-    if (n.info == null)
-        return false;
     if ((min != -1 && n.info <= (min)) || (max != -1 && n.info >= (max)))
         return false;
     if (n.left != null)
@@ -372,11 +395,26 @@ private boolean noDuplicatesHelper(Node node, Set<Integer> seen) {
 ```
 
 """
+
 TEXT_PROP_LIST_EXAMPLE_2="""- Consistent size: The size attribute must be equal to the number of nodes in the tree.
 - Acyclic structure: The tree structure must be acyclic, i.e., no node should have a path back to itself.
 - Ordered structure: The tree must maintain the binary search tree property, where the left child of a node has a value less than the parent node, and the right child has a value greater than the parent node.
 - No duplicate values: No two nodes in the tree should have the same value.
 """
+
+SPEC_EXAMPLE_2="""### Behavior
+The BinTree class represents a simple binary search tree (BST) that stores unique integer values. It consists of a private inner Node class, where each node holds an integer value and references to its left and right children. The tree maintains a reference to the root node and a size counter to track the number of elements. The add method inserts a new integer into the tree, ensuring that duplicates are not allowed, placing smaller values in the left subtree and larger values in the right subtree recursively. The contains method checks whether a given integer exists in the tree by traversing it recursively according to BST rules. Finally, the getSize method returns the total number of elements in the tree.
+
+### Attributes
+- root (Node): The root node of the binary search tree.
+- size (int): Tracks the number of nodes in the tree.
+The inner Node class has:
+- info (int): Stores the integer value of the node.
+- left (Node): Reference to the left child.
+- right (Node): Reference to the right child.
+
+### Properties
+""" + TEXT_PROP_LIST_EXAMPLE_2
 
 TEXT_SINGLE_PROP_EXAMPLE_2="""### Property:
 - Acyclic structure: The tree structure must be acyclic, i.e., no node should have a path back to itself.
@@ -568,6 +606,20 @@ TEXT_PROP_LIST_EXAMPLE_3="""- No negative size: The size attribute must not be n
 - Consistent size: The size attribute must be equal to the number of nodes in the tree.
 - Acyclic structure: The linked list structure must be acyclic, i.e., no node should have a path back to itself.
 """
+
+SPEC_EXAMPLE_3="""### Behavior
+The LinkedList class represents a simple implementation of a singly linked list. It consists of a private static inner class Node, which holds an integer data value and a reference to the next node in the list. The LinkedList class maintains a reference to the head node and tracks the size of the list. The constructor initializes an empty list with head set to null and size set to 0. The add method adds a new node containing the given data at the end of the list, updating the size. The remove method removes and returns the data from the head node of the list, shifting the head to the next node, and decreases the size. If the list is empty, calling remove throws an IllegalStateException. 
+
+### Attributes
+- head (Node): This attribute is a reference to the first node (the head) of the linked list. It is initially set to null when the list is empty.
+- size (int): This integer keeps track of the number of elements in the linked list. It is initialized to 0 when the list is created and is updated when elements are added or removed.
+The inner Node class has:
+- data (int): Holds the integer value of the node.
+- next (Node): A reference to the next node in the list. If it's the last node, it points to null.
+
+### Properties
+""" + TEXT_PROP_LIST_EXAMPLE_3
+
 
 TEXT_SINGLE_PROP_EXAMPLE_3="""### Property:
 - Consistent size: The size attribute must be equal to the number of nodes in the tree.
