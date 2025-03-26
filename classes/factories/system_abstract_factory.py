@@ -50,5 +50,13 @@ class SystemAbstractFactory:
             return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
         elif self.prompt_type == SYSTEM_HINTS_USER_ASSISTANT_FS_PROPS_PT:
             return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == "spec":
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == "spec-only":
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == "spec-fs":
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
+        elif self.prompt_type == "spec-only-fs":
+            return DualPromptTypeFactory(self.prompt_type, self.raw_class, self.class_name) 
         else:
             raise Exception("Invalid prompt type: " + self.prompt_type + "\n")

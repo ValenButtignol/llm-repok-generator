@@ -16,6 +16,8 @@ class ModelPathFactory:
             return MODELS_FOLDER + DISTILL_QWEN_7B_NAME
         elif self.model_name == DISTILL_QWEN_14B:
             return MODELS_FOLDER + DISTILL_QWEN_14B_NAME
+        elif self.model_name == "llamita":
+            return "models/Llama-3.2-1B-Instruct-Q6_K_L.gguf"
 
         else:
             raise Exception("Invalid model name: " + self.model_name + "\n")
