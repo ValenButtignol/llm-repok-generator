@@ -47,13 +47,17 @@ class RepOKParser:
         classes = []
         class_number = 1
         for snippet in repok_snippets:
-            repok_class = REPOK_CLASS_PREFIX(class_number) 
-            repok_class += snippet + "\n"
+            modified_snippet = snippet.replace("repOK", f"repOK_{class_number}") \
+                                      .replace("property", f"property_{class_number}")
+            
+            repok_class = REPOK_CLASS_PREFIX(class_number)
+            repok_class += modified_snippet + "\n"
             repok_class += CLASS_SUFFIX
             classes.append((repok_class, REPOK_CLASS_FILENAME(class_number)))
             class_number += 1
-
+    
         return classes
+
     
     def _startswith_repoksignature(self, text):
         return (text.startswith(PUBLIC_REPOK_SIG) or text.startswith(PUBLIC_PROP_SIG) or
