@@ -1,4 +1,4 @@
-from classes.string_constants import CLASS_SUFFIX, CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PRIVATE_DECL, PRIVATE_PROP_SIG, PRIVATE_REPOK_SIG, PROTECTED_DECL, PROTECTED_PROP_SIG, PROTECTED_REPOK_SIG, PUBLIC_DECL, PUBLIC_PROP_SIG, PUBLIC_REPOK_SIG, REPOK_CLASS_FILENAME, REPOK_CLASS_PREFIX, TAB
+from classes.string_constants import CLOSE_REASONING_TAG, OPEN_REASONING_TAG, PRIVATE_DECL, PRIVATE_PROP_SIG, PRIVATE_REPOK_SIG, PROTECTED_DECL, PROTECTED_PROP_SIG, PROTECTED_REPOK_SIG, PUBLIC_DECL, PUBLIC_PROP_SIG, PUBLIC_REPOK_SIG, REPOK_CLASS_FILENAME, TAB
 
 class RepOKParser:
 
@@ -43,21 +43,15 @@ class RepOKParser:
             snippets.append(snippet)
         return snippets
     
-    def _build_repOK_classes(self, repok_snippets):
-        classes = []
-        class_number = 1
+    def _build_repOK_files(self, repok_snippets):
+        files = []
+        file_number = 1
         for snippet in repok_snippets:
-            modified_snippet = snippet.replace("repOK", f"repOK_{class_number}") \
-                                      .replace("property", f"property_{class_number}")
-            
-            repok_class = REPOK_CLASS_PREFIX(class_number)
-            repok_class += modified_snippet + "\n"
-            repok_class += CLASS_SUFFIX
-            classes.append((repok_class, REPOK_CLASS_FILENAME(class_number)))
-            class_number += 1
-    
-        return classes
-
+            modified_snippet = snippet.replace("repOK", f"repOK_{file_number}") \
+            .replace("property", f"property_{file_number}")
+        files.append((modified_snippet, REPOK_CLASS_FILENAME(file_number)))
+        class_number += 1
+        return files
     
     def _startswith_repoksignature(self, text):
         return (text.startswith(PUBLIC_REPOK_SIG) or text.startswith(PUBLIC_PROP_SIG) or

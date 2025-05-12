@@ -64,7 +64,4 @@ CLASS_SUFFIX="""}\n"""
 PROPERTY_TAG="\n### Property\n"
 
 def REPOK_CLASS_FILENAME(number):
-    return "RepOkClass" + str(number) + ".java"
-
-def REPOK_CLASS_PREFIX(number):
-    return "public class RepOkClass" + str(number) + "{\n"
+    return "RepOKClass" + str(number) + ".txt"
